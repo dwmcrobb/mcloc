@@ -51,7 +51,8 @@ int main(int argc, char *argv[])
   using Mcloc::Assertions;
 
   static const map<string,pair<uint64_t,uint64_t>>  files = {
-    { "inputs/rust_001.rs", { 9, 31 } }
+    { "inputs/rust_001.rs", { 9, 31 } },
+    { "inputs/rust_002.rs", { 9, 39 } }
   };
 
   Dwm::Mcloc::SingleFileTests(files);
