@@ -1,0 +1,8 @@
+autom4te.cache
+config.log
+config.status
+Makefile.vars
+mcloc.list
+mcloc_*.deb
+mcloc-*.pkg
+mcloc-*.txz
