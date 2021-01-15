@@ -1,0 +1,7 @@
+<!DOCTYPE RCC><RCC version="1.0">
+  <qresource>
+    <file>resources/images/mcloc_mcplex_orange_base.svg</file>
+    <file>resources/images/mcloc_orange_base.svg</file>
+    <file>resources/images/mcloc_blue_base.svg</file>
+</qresource>
+</RCC>

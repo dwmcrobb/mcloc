@@ -1,0 +1,110 @@
+2021-01-14  Daniel McRobb  <dwm@mcplex.net>
+
+	* tagged as mcloc-1.0.5
+
+2021-01-13  Daniel McRobb  <dwm@mcplex.net>
+
+	* Updated the mcloc manpage.  Added a bit more documentation to
+	the configuration file.
+
+2021-01-12  Daniel McRobb  <dwm@mcplex.net>
+
+	* Improved accuracy of Cpp and Flex scanners.
+
+2021-01-09  Daniel McRobb  <dwm@mcplex.net>
+
+	* Added Cmake scanner.  Added SQL scanner.
+
+	* Added YAML scanning (no code change, just added to the Shell
+	scanner configuration).
+
+	* Added Assembly scanning (no code change, just added to Lisp
+	scanner configuration).
+
+	* Added IDL scanning (no code change, just added to Cpp scanner
+	configuration).
+
+	* Added protobuf scanning (no code change, just added to Cpp
+	scanner configuration).
+
+	* Added sed and awk scanning (no code change, just added to
+	the Shell scanner configuration).
+
+2021-01-07  Daniel W. McRobb  <dwm@mcplex.net>
+
+	* Added Lua scanner, but it's not perfect.  State would have to be
+	kept for the nesting form since the number of '=' between braces
+	is indefinite but must be matched with the closing braces.
+	']]' can appear in source, which makes block comments in
+	Lua troublesome.  I've never used Lua, so I'll wait for some
+	feedback.
+
+	* Added Prolog scanner, but it's disabled in the default
+	configuration file due to conflicts with Perl source file
+	extensions and Qt project file extensions.
+
+	* Added Fortran scanner.
+
+	* Added Julia scanner.
+
+	* Added Dart scanning.  No code changes, it uses the Cpp scanner.
+
+	* Added Perl scanner.
+
+	* Cleaned up some of the build infrastructure.
+
+	* tagged as mcloc-1.0.4
+
+2021-01-06  Daniel McRobb  <dwm@mcplex.net>
+
+	* First pass at a GUI application is done (apps/qmcloc).
+
+2021-01-04  Daniel McRobb  <dwm@mcplex.net>
+
+	* Added scanners for TeX/LaTeX and HTML.
+
+2021-01-03  Daniel W. McRobb  <dwm@mcplex.net>
+
+	* apps/mcloc: Moved command line processing classes to Mcloc
+	namespace to avoid any potential future conflict with same classes
+	in libDwm.
+
+2021-01-02  Daniel W. McRobb  <dwm@mcplex.net>
+
+	* Reorganized to build a library so I can later build other
+	applications.  mcloc is now in the apps/mcloc directory,
+	classes that can be used by other applications are in the classes
+	directory.
+
+2020-12-23  Daniel W. McRobb  <dwm@mcplex.net>
+
+	* Makefile: Use mkdebcontrol (from libDwm), dpkg-deb and dpkg-name
+	instead of epm when building debian packages on linux.
+
+2020-11-07  Daniel McRobb  <dwm@mcplex.net>
+
+	* tagged as mcloc-1.0.3
+
+	* mcloc.cc: Added '-v' command line option to show version.
+
+	* tagged as mcloc-1.0.2
+
+	* mcloc.cc:
+	If std::thread::hardware_concurrency() returns a value greater
+	than 24, reduce it by a factor of 2 before using it as the default
+	number of threads.  On the platforms I own with 24 or more cores,
+	it's much faster.  This appears to be due to I/O thrashing, which
+	makes some sense.  It makes a glaring difference on Threadripper
+	3960X with PCIe Gen4 x4 NVMe storage (Sabrent Rocket 1TB); 60
+	million lines/sec versus 30 million lines/sec.
+
+	* DwmMclocSourceCollection.cc:
+	Fix bug with calculation of trailer string length that I use for
+	full-terminal-width underlines; if the line is aleady wide, the
+	trailer should just be empty.
+
+2020-11-06  Daniel McRobb  <dwm@mcplex.net>
+
+	* DwmMclocCodeUtils.cc:
+	Explicitly ignore shared library files, i.e. those with filenames
+	matching the ECMAScript regular expression ".+\.so(\.[0-9]+)*".

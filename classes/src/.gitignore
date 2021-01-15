@@ -1,0 +1,7 @@
+*FileScanner.cc
+DwmMclocConfigLex.cc
+DwmMclocConfigParse.cc
+DwmMclocConfigParse.hh
+DwmMclocRecentsLexer.cc
+DwmMclocRecentsParser.cc
+DwmMclocRecentsParser.hh

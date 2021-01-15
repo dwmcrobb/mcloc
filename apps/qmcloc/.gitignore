@@ -1,0 +1,8 @@
+.qmake.stash
+Makefile.qmake
+moc_*.cpp
+moc_*.h
+qmcloc
+qmcloc.app
+qrc_qmcloc.cpp
+ui_qmcloc.h

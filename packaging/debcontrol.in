@@ -1,0 +1,12 @@
+Section: devel
+Priority: optional
+Maintainer: Daniel McRobb <dwm@mcplex.net>
+Build-Depends: debhelper-compat (= 12), autotools-dev
+Standards-Version: 4.4.1
+Homepage: http://www.mcplex.net
+Package: mcloc
+Version: @DWM_VERSION@
+Architecture: @DEBARCH@
+Description: A lines of code counter utility.
+  A command line utility for obtaining a rough count of lines of code and
+  comments in source code files of various programming languages.

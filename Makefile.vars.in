@@ -1,0 +1,10 @@
+CXX              = @CXX@
+CXXFLAGS         = @CXXFLAGS@ -pthread
+LDFLAGS          = @LDFLAGS@
+OSLIBS		 = @LIBS@
+OSNAME           = @OSNAME@
+PREFIXDIR	 = @prefix@
+TAG		 = @DWM_TAG@
+STAGING          = @STAGING@
+TERMLIB          = -ltermcap
+VERSION          = @DWM_VERSION@
