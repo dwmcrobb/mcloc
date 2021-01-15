@@ -44,3 +44,24 @@ accurately for some languages without writing a full language front end.
 And some sources (the patterns in the rules of flex source, for example)
 tend to throw a wrench in the mechanisms used by other tools.
 
+## Limitations
+
+Like all LOC counters that don't implement a full language front end,
+it is not always 100% accurate.  But in the areas that are important
+to me in my own code (C, C++, flex, bison), it's more accurate than
+other tools I've tried.  Your mileage may vary.  If you find a test
+case where it gets lost, open an issue and I'll try to fix it (and
+create a unit test so it doesn't happen again).
+
+Mapping a file to a scanner is done via filename extensions (or
+regular expressions for a few cases).  This is by design and it's
+highly unlikely I'll change it; all of my projects follow consistent
+naming conventions and my work is focused on languages where source
+files all have common extensions.  The mappings can be configured in
+the configuration file.  This is a design tradeoff that allows
+me to ignore files that don't match a naming convention instead
+of opening them and trying to figure out what they are.
+
+Of course this makes it unsuitable for some code bases, especially
+those that might have conflicting extensions (say perl and Prolog)
+and definitely those that have no filename extensions.
