@@ -68,8 +68,8 @@ comments in a manner that doesn't send the tool into the weeds.
 And of course... you can always write your own tool or contribute
 issue and/or fixes to any of the tools that are open source!
 
-As an example, this simple C++ source is grossly miscounted by tokei and scc,
-which both claim to be accurate:
+As an example, this simple C++ source is grossly miscounted by tokei
+and scc, which both claim to be accurate:
 
 ```
 #include <iostream>
@@ -91,22 +91,19 @@ int main(int argc, char *argv[])
  */
 ```
 
-I'm not maligning these other tools.  I'm simply pointing out that some languages
-have valid language syntax that can send our tools into the weeds.  Be aware.
-I'm quite certain there are many cases where mcloc makes egregious mistakes, and
-I just haven't seen them yet since my usage is limited to my own code.  But I will
-say that philosophically, I'm not very interested in "fast!" if I can't trust the
-tool on _my_ code.  If you report problems, I'll do my best to address them even
-if it means being a bit slower.
-
-### Doesn't handle many Rust comments properly
-I currently don't correctly handle Rust comments, since I use the C++ scanner
-on Rust files.  This is fundamentally flawed for a lot of Rust source... it will
-do the wrong thing for nested comments.
+I'm not maligning these other tools.  I'm simply pointing out that
+some languages have valid language syntax that can send our tools into
+the weeds.  Be aware.  I'm quite certain there are many cases where
+mcloc makes egregious mistakes, and I just haven't seen them yet since
+my usage is limited to my own code.  But I will say that
+philosophically, I'm not very interested in "fast!" if I can't trust
+the tool on _my_ code.  If you report problems, I'll do my best to
+address them even if it means being a bit slower.
 
 ### Many languages largely untested
-since I don't work in very many of the languages I claim to support, I don't have
-tests for them at the moment and I'm sure that there are problems I don't know about.
+Since I don't work in very many of the languages I claim to support, I
+don't have tests for them at the moment and I'm sure that there are
+problems I don't know about.
 
 ### No automatic language detection
 Mapping a file to a scanner is done via filename extensions (or

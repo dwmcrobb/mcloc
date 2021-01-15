@@ -29,6 +29,7 @@ OBJFILES	= DwmMclocAdaFileScanner.o \
 		  DwmMclocRecentsLexer.o \
 		  DwmMclocRecentsParser.o \
 		  DwmMclocRubyFileScanner.o \
+		  DwmMclocRustFileScanner.o \
 		  DwmMclocScanWorker.o \
 		  DwmMclocShellFileScanner.o \
 		  DwmMclocSourceCollection.o \

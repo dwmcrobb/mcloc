@@ -3,7 +3,8 @@ include ../../Makefile.vars
 OBJFILES	= TestCppScanner.o \
 		  TestDScanner.o \
 		  TestFlexScanner.o \
-		  TestLuaScanner.o
+		  TestLuaScanner.o \
+		  TestRustScanner.o
 OBJDEPS		= $(OBJFILES:%.o=deps/%_deps)
 OBJDEPS         += deps/DwmMclocSingleFileTests_deps \
 		   deps/MclocUnitAssert_deps

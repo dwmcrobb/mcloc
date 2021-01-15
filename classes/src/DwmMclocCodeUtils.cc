@@ -70,6 +70,7 @@
 #include "DwmMclocPrologFileScanner.hh"
 #include "DwmMclocPythonFileScanner.hh"
 #include "DwmMclocRubyFileScanner.hh"
+#include "DwmMclocRustFileScanner.hh"
 #include "DwmMclocShellFileScanner.hh"
 #include "DwmMclocSqlFileScanner.hh"
 #include "DwmMclocTexFileScanner.hh"
@@ -116,6 +117,7 @@ namespace Dwm {
           g_scanners["Prolog"]     = new PrologFileScanner();
           g_scanners["Python"]     = new PythonFileScanner();
           g_scanners["Ruby"]       = new RubyFileScanner();
+          g_scanners["Rust"]       = new RustFileScanner();
           g_scanners["Shell"]      = new ShellFileScanner();
           g_scanners["SQL"]        = new SqlFileScanner();
           g_scanners["TeX"]        = new TexFileScanner();
