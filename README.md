@@ -82,6 +82,16 @@ Of course this makes it unsuitable for some code bases, especially
 those that might have conflicting extensions (say perl and Prolog)
 and definitely those that have no filename extensions.
 
+### No Windows port at the moment
+I just haven't had time to do this.  It shouldn't be difficult; in
+all likelihood it's not much more than bringing in an open source
+version of getopt.
+
+### The graphical version (qmcloc) is limited
+I sort of threw this together as a hack.  If others find it useful,
+I'll put some more work into it.  Just let me know!  It's Qt5-based
+so you'll need Qt5 installed in order to compile and use it.
+
 ## Some background
 I consider lines-of-code counters mostly personal developer tools.
 Writing one is a useful exercise that I encourage other developers to
