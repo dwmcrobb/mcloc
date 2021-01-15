@@ -150,4 +150,4 @@ metric I'll use to guide my design choices, and in refactoring efforts
 where the simplification and reduction of code is an objective.  Say
 modernizing C++98 or C++03 code to C++11 or later, which often presents
 opportunities to utilize new language and standard library facilities
-that reduces the amount of code we have to maintain.
+that reduce the amount of code we have to maintain.
