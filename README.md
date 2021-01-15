@@ -68,6 +68,36 @@ comments in a manner that doesn't send the tool into the weeds.
 And of course... you can always write your own tool or contribute
 issue and/or fixes to any of the tools that are open source!
 
+As an example, this simple C++ source is grossly miscounted by tokei and scc,
+which both claim to be accurate:
+
+```
+#include <iostream>
+
+int main(int argc, char *argv[])
+{
+  std::cout << '"';
+  /*  block comment
+      inside code */
+}
+
+//----------------------------------------------------------------------------
+//!
+//----------------------------------------------------------------------------
+/*  
+ *
+ *
+ *
+ */
+```
+
+I'm not maligning these other tools.  I'm simply ponting out that some languages
+have valid language syntax that can send our tools into the weeds.  Be aware.
+I'm quite certain there are many cases where mcloc makes egregious mistakes, and
+I just haven't seen them yet since my usage is limited to my own code.  But I will
+say that philosophically, I'm not very interested in "fast!" if I can't trust the
+tool on _my_ code.
+
 ### No automatic language detection
 Mapping a file to a scanner is done via filename extensions (or
 regular expressions for a few cases).  This is by design and it's
