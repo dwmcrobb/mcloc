@@ -36,16 +36,18 @@ I don't need it to be any faster.  Note that above we see it only took
 milliseconds or so was spent doing things like reading the configuration,
 finding files of interest in the filesystem, etc.  For my typical usage,
 on MUCH smaller code bases, it's essentially instantaneous.  And I'm not
-willing to gravely risk accuracy in the name of speed.  A few lines here
-and there, no big deal.  But any time I find it getting lost and grossly
-miscounting, I fix it.  This tends to be a problem with most LOC counters
-and it's understandable.  There are limitations with what can be done
-accurately for some languages without writing a full language front end.
-And some sources (the patterns in the rules of flex source, for example)
-tend to throw a wrench in the mechanisms used by other tools.
+willing to gravely risk accuracy in the name of a bit more speed.  A few
+lines here and there, no big deal.  But any time I find it getting lost
+and grossly miscounting, I fix it.  This tends to be a problem with most
+LOC counters and it's understandable.  There are limitations with what
+can be done accurately for some languages without writing a full language
+front end.  And some sources (the patterns in the rules of flex source,
+for example) tend to throw a wrench in the mechanisms used by some LOC
+counting tools.
 
 ## Limitations
 
+### Accuracy
 Like all LOC counters that don't implement a full language front end,
 it is not always 100% accurate.  But in the areas that are important
 to me in my own code (C, C++, flex, bison), it's more accurate than
@@ -53,6 +55,20 @@ other tools I've tried.  Your mileage may vary.  If you find a test
 case where it gets lost, open an issue and I'll try to fix it (and
 create a unit test so it doesn't happen again).
 
+For some languages, counting lines of code and lines of comments is
+essentially trivial and can be done with simple egrep invocations.
+Those with block commenting with comment start/end sequences are
+more difficult.  And some with nested comment facilities are even
+more difficult.  There's only so much a textual tool can do, and
+I encourage users of these tools to be wary.  I've been seeing
+misleading claims of accuracy for literally decades for these tools.
+I make no claim of 100% accuracy.  It's important to understand
+how these tools work, and if you want 100% accuracy, write your
+comments in a manner that doesn't send the tool into the weeds.
+And of course... you can always write your own tool or contribute
+issue and/or fixes to any of the tools that are open source!
+
+### No automatic language detection
 Mapping a file to a scanner is done via filename extensions (or
 regular expressions for a few cases).  This is by design and it's
 highly unlikely I'll change it; all of my projects follow consistent
@@ -65,3 +81,23 @@ of opening them and trying to figure out what they are.
 Of course this makes it unsuitable for some code bases, especially
 those that might have conflicting extensions (say perl and Prolog)
 and definitely those that have no filename extensions.
+
+## Some background
+I consider lines-of-code counters mostly personal developer tools.
+Writing one is a useful exercise that I encourage other developers to
+try as an exercise, in whatever language you prefer.
+
+### A much-maligned metric
+In and of itself, lines of code isn't a terribly useful metric.  It's
+certainly not very useful to someone who isn't actively working on the
+code being counted.  The correlation to work done is often weak, and the
+anticorrelation is often strong (it takes more work/knowledge to deliver
+the same functionality with fewer lines of code).
+
+### My own use
+My primary use of mcloc is during exploratory design where LOC is one
+metric I'll use to guide my design choices, and in refactoring efforts
+where the simplification and reduction of code is an objective.  Say
+modernizing C++98 or C++03 code to C++11 or later, which often presents
+opportunities to utilize new language and standard library facilities
+that reduces the amount of code we have to maintain.
