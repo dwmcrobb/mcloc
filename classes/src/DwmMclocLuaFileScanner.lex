@@ -1,8 +1,6 @@
 %{
   //=========================================================================
-  // @(#) $DwmPath: dwm/mcplex/mcloc/trunk/classes/src/DwmMclocLuaFileScanner.lex 11829 $
-  //=========================================================================
-  //  Copyright (c) Daniel W. McRobb 2020
+  //  Copyright (c) Daniel W. McRobb 2020, 2021
   //  All rights reserved.
   //
   //  Redistribution and use in source and binary forms, with or without
@@ -40,16 +38,54 @@
   //!  \brief Dwm::Mcloc::LuaFileScanner implementation and lexical scanner
   //-------------------------------------------------------------------------
 
+  #include <algorithm>
+  
   #include "DwmMclocLuaFileScanner.hh"
 
-  static const std::string svnid("@(#) $DwmPath: dwm/mcplex/mcloc/trunk/classes/src/DwmMclocLuaFileScanner.lex 11829 $");
+  //--------------------------------------------------------------------------
+  //!  
+  //--------------------------------------------------------------------------
+  struct LuaExtra {
+    std::vector<uint32_t>         eq;
+    Dwm::Mcloc::SourceFileInfo  & sfi;
+  };
+
+  //--------------------------------------------------------------------------
+  //!  
+  //--------------------------------------------------------------------------
+  uint32_t EqSignCount(const std::string & txt)
+  {
+    return std::count(txt.begin(), txt.end(), '=');
+  }
+
+  //--------------------------------------------------------------------------
+  //!  
+  //--------------------------------------------------------------------------
+  void PushEqSigns(LuaExtra & luaExtra, const std::string & txt)
+  {
+    luaExtra.eq.push_back(EqSignCount(txt));
+  }
+
+  //--------------------------------------------------------------------------
+  //!  
+  //--------------------------------------------------------------------------
+  bool PopEqSigns(LuaExtra & luaExtra, const std::string & txt)
+  {
+    bool  rc = false;
+    if (luaExtra.eq.back() == EqSignCount(txt)) {
+      luaExtra.eq.pop_back();
+      rc = true;
+    }
+    return rc;
+  }
+      
 %}
 
  // flex options
 %option prefix="lua_"
 %option 8bit full reentrant stack noyywrap
 %option outfile="DwmMclocLuaFileScanner.cc"
-%option extra-type="Dwm::Mcloc::SourceFileInfo *"
+%option extra-type="LuaExtra *"
 
  // patterns
 m_cStart   ^[ \t]*[-][-]
@@ -61,18 +97,37 @@ m_cStart   ^[ \t]*[-][-]
 
 %%
 
-<INITIAL>{m_cStart}\[\[        { yy_push_state(x_blockComment, yyscanner); }
-<x_blockComment>\]\][ \t]*\n   { yyextra->Counter().IncrementCommentLines();
-                                 yy_pop_state(yyscanner); }
-<x_blockComment>\]\]           { yy_pop_state(yyscanner); }
+<INITIAL>{m_cStart}\[\=*\[          {
+  PushEqSigns(*yyextra, yytext);
+  yy_push_state(x_blockComment, yyscanner);
+}
+<x_blockComment>\][=]*\][ \t]*\n    {
+  yyextra->sfi.Counter().IncrementCommentLines();
+  if (PopEqSigns(*yyextra, yytext)) {
+    yy_pop_state(yyscanner);
+  }
+}
+<x_blockComment>\][=]*\]            {
+  if (PopEqSigns(*yyextra, yytext)) {
+    yy_pop_state(yyscanner);
+  }
+}
 <x_blockComment>.
-<x_blockComment>\n             { yyextra->Counter().IncrementCommentLines(); }
+<x_blockComment>\n                  {
+  yyextra->sfi.Counter().IncrementCommentLines();
+}
 
-<INITIAL>{m_cStart}            { yy_push_state(x_oneLineComment, yyscanner); }
-<x_oneLineComment>.*\n         { yyextra->Counter().IncrementCommentLines();
-                                 yy_pop_state(yyscanner); }
+<INITIAL>{m_cStart}                 {
+  yy_push_state(x_oneLineComment, yyscanner);
+}
+<x_oneLineComment>.*\n              {
+  yyextra->sfi.Counter().IncrementCommentLines();
+  yy_pop_state(yyscanner);
+}
 <INITIAL>^[ \t]*\n
-<INITIAL>\n                    { yyextra->Counter().IncrementCodeLines(); }
+<INITIAL>\n                         {
+  yyextra->sfi.Counter().IncrementCodeLines();
+}
 <INITIAL>.
 
 %%
@@ -88,8 +143,10 @@ namespace Dwm {
                                  SourceFileInfo & sfi) const
     {
       sfi.Counter().Reset();
+      LuaExtra  luaExtra({std::vector<uint32_t>(), sfi});
       yyscan_t  scanner;
-      lua_lex_init_extra(&sfi, &scanner);
+      lua_lex_init_extra(&luaExtra, &scanner);
+      // lua_set_debug(1, scanner);
       FILE  *inFile = fopen(path.string().c_str(), "r");
       if (inFile) {
         lua_set_in(inFile, scanner);

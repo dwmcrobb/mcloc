@@ -1,6 +1,4 @@
 //===========================================================================
-// @(#) $DwmPath: dwm/mcplex/mcloc/trunk/classes/tests/TestLuaScanner.cc 11843 $
-//===========================================================================
 //  Copyright (c) Daniel W. McRobb 2021
 //  All rights reserved.
 //
@@ -54,7 +52,8 @@ int main(int argc, char *argv[])
 
   static const map<string,pair<uint64_t,uint64_t>>  files = {
     { "inputs/lua_001.lua", { 10, 1 } },
-    { "inputs/lua_002.lua", {  7, 6 } }
+    { "inputs/lua_002.lua", {  7, 6 } },
+    { "inputs/lua_003.lua", {  7, 8 } }
   };
 
   Dwm::Mcloc::SingleFileTests(files);
