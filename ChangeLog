@@ -1,3 +1,12 @@
+2021-01-15  Daniel McRobb  <dwm@mcplex.net>
+
+	* tagged as mcloc-1.0.6
+
+	* Created separate Rust scanner so I can handle Rust nested
+	comments.  Add a basic unit test for it using the comments from
+	the Rust reference
+	(https://doc.rust-lang.org/reference/comments.html).
+
 2021-01-14  Daniel McRobb  <dwm@mcplex.net>
 
 	* tagged as mcloc-1.0.5
