@@ -17,7 +17,7 @@ define(DWM_SET_PKGVARS,[
     *)
       ;;
   esac
-  STAGING=`realpath ./staging`
+  STAGING=`pwd`/staging
   AC_SUBST(OSNAME)
   AC_SUBST(OSVERSION)
   AC_SUBST(STAGING)
@@ -74,7 +74,7 @@ define(DWM_GIT_TAG,[
   dirty=`echo "${gittag}" | awk -F '-' '$NF ~ /g[[a-f0-9]]+/ {if (NF > 2 && $(NF -1) ~ /[[0-9]]+/) {print $NF}}'`
   if test -z "${dirty}"; then
     GIT_TAG="${gittag}"
-    GIT_VERSION=`echo "${gittag}" | awk -F '-' '{print $NF}'`
+    GIT_VERSION=`echo "${gittag}" | awk -F '-' '{print $(NF - 1)}'`
   else
     fakevers=`echo "${dirty}" | cut -d'g' -f2`
     fakevers=`echo $((0x${fakevers}))`

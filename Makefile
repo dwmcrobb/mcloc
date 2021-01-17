@@ -22,7 +22,7 @@ freebsd-pkg: pkgprep
 
 linux-pkg: pkgprep
 	if [ ! -d staging/DEBIAN ]; then mkdir staging/DEBIAN; fi
-	mkdebcontrol -f packaging/debcontrol staging > staging/DEBIAN/control
+	mkdebcontrol -r packaging/debcontrol -s staging > staging/DEBIAN/control
 	dpkg-deb -b --root-owner-group staging
 	dpkg-name -o staging.deb
 

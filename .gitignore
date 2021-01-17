@@ -6,3 +6,4 @@ mcloc.list
 mcloc_*.deb
 mcloc-*.pkg
 mcloc-*.txz
+staging/*

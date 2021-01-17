@@ -45,6 +45,42 @@ front end.  And some sources (the patterns in the rules of flex source,
 for example) tend to throw a wrench in the mechanisms used by some LOC
 counting tools.
 
+## Building
+
+```
+./configure
+make
+```
+
+## Installation
+I don't include an install target in the Makefile.  I normally build a
+package and install the package.
+
+To build a package on FreeBSD, you need
+[mkfbsdmnfst](https://github.com/dwmcrobb/mkfbsdmnfst).  To build a package
+on a Debian-based Linux, you need
+[mkdebcontrol](https://github.com/dwmcrobb/mkdebcontrol).  No additional
+tools are needed on macOS, assuming you have Xcode and the Xcode command
+line tools installed.
+
+On FreeBSD:
+
+```gmake package
+pkg install mcloc-1.0.7.txz
+```
+
+On Linux:
+
+```gmake package
+dpkg -i mcloc_1.0.7_amd64.deb
+```
+
+On macOS:
+
+```gmake package
+open mcloc-1.0.7.pkg
+```
+
 ## Limitations
 
 ### Accuracy
