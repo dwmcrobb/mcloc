@@ -6,5 +6,6 @@ moc_*.cpp
 moc_*.h
 qmcloc
 qmcloc.app
+qmcloc.pro
 qrc_qmcloc.cpp
 ui_qmcloc.h

@@ -6,7 +6,7 @@ OBJDEPS         = $(OBJFILES:%.o=deps/%_deps)
 PKGTARGETS 	= ${STAGING}${PREFIXDIR}/bin/mcloc
 
 mcloc: ${OBJFILES} ../../classes/lib/libMcloc.a
-	${CXX} ${CXXFLAGS} ${LDFLAGS} -o $@ $^ ${TERMLIB}
+	${CXX} ${CXXFLAGS} ${LDFLAGS} -o $@ $^ ${TERMLIB} ${OSLIBS}
 
 #  dependency rule
 deps/%_deps: %.cc
