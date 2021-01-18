@@ -65,19 +65,22 @@ line tools installed.
 
 On FreeBSD:
 
-```gmake package
+```
+gmake package
 pkg install mcloc-1.0.7.txz
 ```
 
 On Linux:
 
-```gmake package
+```
+gmake package
 dpkg -i mcloc_1.0.7_amd64.deb
 ```
 
 On macOS:
 
-```gmake package
+```
+gmake package
 open mcloc-1.0.7.pkg
 ```
 
