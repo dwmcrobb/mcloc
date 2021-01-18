@@ -3219,7 +3219,7 @@ $as_echo "
 
 
 
-ac_config_files="$ac_config_files Makefile.vars classes/include/DwmMclocPackageInfo.hh packaging/fbsd_manifest packaging/debcontrol"
+ac_config_files="$ac_config_files Makefile.vars classes/include/DwmMclocPackageInfo.hh packaging/fbsd_manifest packaging/debcontrol apps/qmcloc/qmcloc.pro"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -3931,6 +3931,7 @@ do
     "classes/include/DwmMclocPackageInfo.hh") CONFIG_FILES="$CONFIG_FILES classes/include/DwmMclocPackageInfo.hh" ;;
     "packaging/fbsd_manifest") CONFIG_FILES="$CONFIG_FILES packaging/fbsd_manifest" ;;
     "packaging/debcontrol") CONFIG_FILES="$CONFIG_FILES packaging/debcontrol" ;;
+    "apps/qmcloc/qmcloc.pro") CONFIG_FILES="$CONFIG_FILES apps/qmcloc/qmcloc.pro" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

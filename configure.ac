@@ -27,5 +27,6 @@ DWM_SET_PKGVARS(mcloc,[mcloc-0.0.0])
 DWM_GET_TAG([mcloc])
 
 AC_CONFIG_FILES([Makefile.vars classes/include/DwmMclocPackageInfo.hh
-                 packaging/fbsd_manifest packaging/debcontrol])
+                 packaging/fbsd_manifest packaging/debcontrol
+		 apps/qmcloc/qmcloc.pro])
 AC_OUTPUT
