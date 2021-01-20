@@ -1,6 +1,7 @@
 include Makefile.vars
 
-PKGTARGETS = ${STAGING}${PREFIXDIR}/etc/mcloc.cfg
+PKGTARGETS = ${STAGING}${PREFIXDIR}/etc/mcloc.cfg \
+             ${STAGING}${PREFIXDIR}/etc/mcloc_cocomo1_intermediate.cfg
 
 all::
 	${MAKE} -C classes
@@ -26,7 +27,10 @@ linux-pkg: pkgprep
 	dpkg-deb -b --root-owner-group staging
 	dpkg-name -o staging.deb
 
-${STAGING}${PREFIXDIR}/etc/mcloc.cfg: mcloc.cfg
+${STAGING}${PREFIXDIR}/etc/mcloc.cfg: etc/mcloc.cfg
+	./install-sh -c -m 644 $< $@
+
+${STAGING}${PREFIXDIR}/etc/mcloc_cocomo1_intermediate.cfg: etc/mcloc_cocomo1_intermediate.cfg
 	./install-sh -c -m 644 $< $@
 
 clean::

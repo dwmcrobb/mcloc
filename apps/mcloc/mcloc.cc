@@ -52,11 +52,14 @@ extern "C" {
 #include "DwmMclocSourceCollection.hh"
 #include "DwmMclocFileScanner.hh"
 #include "DwmMclocPackageInfo.hh"
-// #include "DwmMclocSvnTag.hh"
+#include "DwmMclocCocomo1Intermediate.hh"
 
 using namespace std;
 
 static const string  g_defaultConf("/usr/local/etc/mcloc.cfg");
+
+static const string
+g_defaultCocomoConf("/usr/local/etc/mcloc_cocomo1_intermediate.cfg");
 
 //----------------------------------------------------------------------------
 //!  
@@ -137,6 +140,8 @@ typedef   Dwm::Mcloc::Arguments<Dwm::Mcloc::Argument<'C',bool>,
                                 Dwm::Mcloc::Argument<'q',bool>,
                                 Dwm::Mcloc::Argument<'a',bool>,
                                 Dwm::Mcloc::Argument<'r',bool>,
+                                Dwm::Mcloc::Argument<'m',bool>,
+                                Dwm::Mcloc::Argument<'M',string>,
                                 Dwm::Mcloc::Argument<'v',bool>> MyArgType;
 
 //----------------------------------------------------------------------------
@@ -176,11 +181,59 @@ static void InitArgs(MyArgType & args, const std::string & configPath)
   args.SetHelp<'q'>("only show total");
   args.SetHelp<'a'>("sort output by size, ascending");
   args.SetHelp<'r'>("sort output by size, descending");
+  args.SetHelp<'m'>("show COCOMO estimates");
+  args.SetHelp<'M'>("specify COCOMO configuration file");
   args.SetHelp<'v'>("show version and exit");
   
   args.SetConflicts({ {'d','e','f','l','s'}, {'a','r'} });
 
   args.LoadFromEnvironment("MCLOC");
+}
+
+//----------------------------------------------------------------------------
+//!  
+//----------------------------------------------------------------------------
+static void
+PrintCocomoEstimates(const Dwm::Mcloc::SourceCollection & sc,
+                     const string & cocoCfgPath)
+{
+  namespace Intermediate = Dwm::Mcloc::Cocomo1::Intermediate;
+  
+  Intermediate::Config  cocoCfg;
+  if (cocoCfg.Parse(cocoCfgPath)) {
+    Dwm::Mcloc::CodeCounter  totals;
+    sc.GetTotal(totals);
+    double  effort = Intermediate::Effort(cocoCfg, totals.CodeLines());
+    double  devTime =
+      Intermediate::DevelopmentTime(cocoCfg, totals.CodeLines());
+    double  persons = effort / devTime;
+
+    Dwm::Mcloc::TerminalTricks  tt;
+    if (isatty(STDOUT_FILENO)) {
+      cout.imbue(std::locale(""));
+    }
+    else {
+      tt.On(false);
+    }
+    tt.Underscore(cout, true);
+    tt.Bold(cout, true);
+    cout << '\n'
+         << setw(22) << "Effort (person-months)";
+    tt.Underscore(cout, false);
+    cout << "    ";
+    tt.Underscore(cout, true);
+    cout << setw(13) << "Time (months)";
+    tt.Underscore(cout, false);
+    cout << "    ";
+    tt.Underscore(cout, true);
+    cout << setw(6) << "People" << '\n';
+    tt.Underscore(cout, false);
+    tt.Bold(cout, false);
+    cout << setw(22) << setprecision(4) << effort << "    "
+         << setw(13) << setprecision(4) << devTime << "    "
+         << setw(6) << setprecision(4) << persons << '\n';
+  }
+  return;
 }
 
 //----------------------------------------------------------------------------
@@ -197,7 +250,7 @@ int main(int argc, char *argv[])
   }
 
   using Dwm::Mcloc::SourceCollection;
-
+    
   MyArgType  args;
   InitArgs(args, configPath);
   
@@ -269,7 +322,14 @@ int main(int argc, char *argv[])
     cout.imbue(std::locale(""));
     
     sc.Print(cout, printBy, args.Get<'g'>(), howToSort, args.Get<'q'>());
-    
+
+    if (args.Get<'m'>()) {
+      string  cocoCfgPath = g_defaultCocomoConf;
+      if (! args.Get<'M'>().empty()) {
+        cocoCfgPath = args.Get<'M'>();
+      }
+      PrintCocomoEstimates(sc, cocoCfgPath);
+    }
     return 0;
   }
   else {

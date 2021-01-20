@@ -14,12 +14,15 @@
 .Sh SYNOPSIS
 .Nm
 .Op Fl C
+.Op Fl c Ar config
 .Op Fl E Ar extension(s)
 .Op Fl L Ar language(s)
 .Op Fl S Ar scanner(s)
 .Op Fl d | e | l | s
 .Op Fl g
 .Op Fl j Ar numThreads
+.Op Fl M Ar cocomo_config
+.Op Fl m
 .Op Fl o
 .Op Fl q
 .Op Fl a | r
@@ -51,6 +54,9 @@ The following optional command line arguments are available:
 .It Fl C
 Print the configuration and exit (do not scan files).  Note this will
 incorporate any changes made with the \fI-E\fR and \fI-S\fR arguments.
+.It Fl c Ar config
+Use \fIconfig\fR as the configuration file instead of the default
+configuration file.
 .It Fl E Ar extension(s)
 Only scan files with an extension specified in \fIextensions(s)\fR,
 which is a comma-separated list of file extensions
@@ -87,6 +93,10 @@ threads.
 .Pp
 The default thread count for parsing source files is the concurrency
 reported by std::thread::hardware_concurrency().
+.It Fl M Ar cocomo_config
+Use \fIcocomo_config\fR as the COCOMO project configuration file.
+.It Fl m
+Report COCOMO Intermediate estimates.
 .It Fl o
 Do not recurse into subdirectories.
 .It Fl q
@@ -340,6 +350,9 @@ is the global configuration file.
 .Pp
 .Pa ${HOME}/.mcloc
 will be used instead of the global configuration file, if present.
+.Pp
+.Pa /usr/local/etc/mcloc_cocomo1_imtermediate.cfg
+is the default COCOMO project configruation file.
 .Sh SEE ALSO
 .Xr \fBawk 1\fR ,
 .Xr \fBbison 1\fR ,
@@ -406,13 +419,6 @@ by file extension or simple regular expression matching.
 .Pp
 Prolog is disabled in the default configuration due to file extension
 conflicts with Perl (.pl) and Qt project files ('.pro').
-.Pp
-Lua block comments aren't handled well, in part because Lua block comments
-are atypical.  The original closing sequence ']]' is a perfectly
-valid sequence within source code, and the alternative form (e.g. ']==]')
-isn't fixed and would hence require additional state to be maintained
-and checked.  I haven't been motivated to fix it simply because I'm not
-a Lua user.
 .Pp
 The grouping of languages under scanners isn't particularly useful to
 the end user.  It's an implementation detail which allows languages

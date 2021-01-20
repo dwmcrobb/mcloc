@@ -3,6 +3,11 @@ include ../../Makefile.vars
 OBJFILES	= DwmMclocAdaFileScanner.o \
 		  DwmMclocClojureFileScanner.o \
 		  DwmMclocCmakeFileScanner.o \
+		  DwmMclocCocomoConfigLexer.o \
+		  DwmMclocCocomoConfigParser.o \
+		  DwmMclocCocomo1Intermediate.o \
+		  DwmMclocCocomo1IntermediateConfig.o \
+		  DwmMclocCocomo1IntermediateValues.o \
 		  DwmMclocConfig.o \
 		  DwmMclocConfigLex.o \
 		  DwmMclocConfigParse.o \
@@ -59,6 +64,14 @@ DwmMclocConfigParse.hh: DwmMclocConfigParse.cc
 DwmMclocConfigParse.cc: DwmMclocConfigParse.y
 	bison -d -o$@ $<
 
+DwmMclocCocomoConfigLexer.cc: DwmMclocCocomoConfigLexer.lex DwmMclocCocomoConfigParser.hh
+	flex -o$@ $<
+
+DwmMclocCocomoConfigParser.hh: DwmMclocCocomoConfigParser.cc
+
+DwmMclocCocomoConfigParser.cc: DwmMclocCocomoConfigParser.y
+	bison -d -o$@ $<
+
 DwmMclocRecentsLexer.cc: DwmMclocRecentsLexer.lex DwmMclocRecentsParser.hh
 	flex -o$@ $<
 
@@ -90,7 +103,11 @@ endif
 
 clean::
 	rm -f ${OBJS} ${OBJDEPS} ../lib/libMcloc.a
-	rm -f *FileScanner.cc DwmMclocConfigLex.cc DwmMclocConfigParse.hh DwmMclocConfigParse.cc DwmMclocRecentsParser.cc DwmMclocRecentsParser.hh DwmMclocRecentsLexer.cc
+	rm -f *FileScanner.cc DwmMclocConfigLex.cc DwmMclocConfigParse.hh
+	rm -f DwmMclocConfigParse.cc DwmMclocRecentsParser.cc
+	rm -f DwmMclocRecentsParser.hh DwmMclocRecentsLexer.cc
+	rm -f DwmMclocCocomoConfigLexer.cc DwmMclocCocomoConfigParser.cc
+	rm -f DwmMclocCocomoConfigParser.hh
 
 distclean:: clean pkgprep-clean
 	rm -f *~

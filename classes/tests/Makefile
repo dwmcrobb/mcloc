@@ -1,6 +1,7 @@
 include ../../Makefile.vars
 
-OBJFILES	= TestCppScanner.o \
+OBJFILES	= TestCocomoConfig.o \
+		  TestCppScanner.o \
 		  TestDScanner.o \
 		  TestFlexScanner.o \
 		  TestLuaScanner.o \
