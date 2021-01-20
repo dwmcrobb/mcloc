@@ -1,5 +1,5 @@
 //===========================================================================
-// @(#) $DwmPath: dwm/mcplex/mcloc/trunk/apps/qmcloc/DwmMclocMainWindow.hh 11837 $
+// @(#) $DwmPath$
 //===========================================================================
 //  Copyright (c) Daniel W. McRobb 2021
 //  All rights reserved.
@@ -34,20 +34,12 @@
 //===========================================================================
 
 //---------------------------------------------------------------------------
-//!  \file DwmMclocMainWindow.hh
+//!  \file DwmMclocCocomoConfigDialog.cc
 //!  \author Daniel W. McRobb
 //!  \brief NOT YET DOCUMENTED
 //---------------------------------------------------------------------------
 
-#ifndef _DWMMCLOCMAINWINDOW_HH_
-#define _DWMMCLOCMAINWINDOW_HH_
-
-#include <QKeyEvent>
-#include <QMainWindow>
-
-#include "DwmMclocRecents.hh"
-#include "DwmMclocFileSystemModel.hh"
-#include "DwmMclocTreeHandler.hh"
+#include "DwmMclocCocomoConfigDialog.hh"
 
 namespace Dwm {
 
@@ -56,38 +48,12 @@ namespace Dwm {
     //------------------------------------------------------------------------
     //!  
     //------------------------------------------------------------------------
-    class MainWindow
-      : public QMainWindow
+    CocomoConfigDialog::CocomoConfigDialog(QWidget *parent)
+        : QDialog(parent)
     {
-      Q_OBJECT
-
-    public:
-      MainWindow(QString path, QWidget *parent = nullptr);
-
-      void SetNumParsingThreads(size_t numThreads);
-
-    public slots:
-      void onActionOpenTriggered();
-      void onRecentTriggered(QAction *action);
-      void cocomoConfigTriggered();
-      
-    protected:
-      void keyPressEvent(QKeyEvent *event) override;
-      
-    private:
-      Ui_MainWindow     _ui;
-      FileSystemModel   _model;
-      TreeHandler       _treeHandler;
-      Recents           _recents;
-      QMenu            *_recentsMenu;
-      
-      void AddLogo();
-      void UpdateRecentsMenu();
-      void MakeConnections();
-    };
+      _ui.setupUi(this);
+    }
     
   }  // namespace Mcloc
 
 }  // namespace Dwm
-
-#endif  // _DWMMCLOCMAINWINDOW_HH_

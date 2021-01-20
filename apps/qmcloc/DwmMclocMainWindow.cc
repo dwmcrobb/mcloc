@@ -43,6 +43,7 @@
 #include <QLabel>
 
 #include "DwmMclocMainWindow.hh"
+#include "DwmMclocCocomoConfigDialog.hh"
 
 extern bool  g_usingDarkPalette;
 
@@ -216,6 +217,15 @@ namespace Dwm {
       return;
     }
 
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    void MainWindow::cocomoConfigTriggered()
+    {
+      CocomoConfigDialog  dialog(this);
+      dialog.exec();
+    }
+    
     //------------------------------------------------------------------------
     //!  
     //------------------------------------------------------------------------

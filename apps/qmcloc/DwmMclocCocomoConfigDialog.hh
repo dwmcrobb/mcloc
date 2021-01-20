@@ -1,5 +1,5 @@
 //===========================================================================
-// @(#) $DwmPath: dwm/mcplex/mcloc/trunk/apps/qmcloc/DwmMclocMainWindow.hh 11837 $
+// @(#) $DwmPath$
 //===========================================================================
 //  Copyright (c) Daniel W. McRobb 2021
 //  All rights reserved.
@@ -34,20 +34,17 @@
 //===========================================================================
 
 //---------------------------------------------------------------------------
-//!  \file DwmMclocMainWindow.hh
+//!  \file DwmMclocCocomoConfigDialog.hh
 //!  \author Daniel W. McRobb
 //!  \brief NOT YET DOCUMENTED
 //---------------------------------------------------------------------------
 
-#ifndef _DWMMCLOCMAINWINDOW_HH_
-#define _DWMMCLOCMAINWINDOW_HH_
+#ifndef _DWMMCLOCCOCOMOCONFIGDIALOG_HH_
+#define _DWMMCLOCCOCOMOCONFIGDIALOG_HH_
 
-#include <QKeyEvent>
-#include <QMainWindow>
+#include <QDialog>
 
-#include "DwmMclocRecents.hh"
-#include "DwmMclocFileSystemModel.hh"
-#include "DwmMclocTreeHandler.hh"
+#include "ui_cocomoCfgDialog.h"
 
 namespace Dwm {
 
@@ -56,38 +53,19 @@ namespace Dwm {
     //------------------------------------------------------------------------
     //!  
     //------------------------------------------------------------------------
-    class MainWindow
-      : public QMainWindow
+    class CocomoConfigDialog
+      : public QDialog
     {
       Q_OBJECT
-
+      
     public:
-      MainWindow(QString path, QWidget *parent = nullptr);
+      CocomoConfigDialog(QWidget *parent = nullptr);
 
-      void SetNumParsingThreads(size_t numThreads);
-
-    public slots:
-      void onActionOpenTriggered();
-      void onRecentTriggered(QAction *action);
-      void cocomoConfigTriggered();
-      
-    protected:
-      void keyPressEvent(QKeyEvent *event) override;
-      
-    private:
-      Ui_MainWindow     _ui;
-      FileSystemModel   _model;
-      TreeHandler       _treeHandler;
-      Recents           _recents;
-      QMenu            *_recentsMenu;
-      
-      void AddLogo();
-      void UpdateRecentsMenu();
-      void MakeConnections();
+      Ui_cocomoConfigDialog  _ui;
     };
     
   }  // namespace Mcloc
 
 }  // namespace Dwm
 
-#endif  // _DWMMCLOCMAINWINDOW_HH_
+#endif  // _DWMMCLOCCOCOMOCONFIGDIALOG_HH_
