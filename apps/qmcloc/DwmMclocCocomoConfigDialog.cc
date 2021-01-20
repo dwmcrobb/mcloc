@@ -45,6 +45,29 @@ namespace Dwm {
 
   namespace Mcloc {
 
+    using namespace std;
+    
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    static QString RToComboText(Cocomo1::Intermediate::Rating r)
+    {
+      QString  rc;
+      static const map<Cocomo1::Intermediate::Rating,string>  ratings = {
+        { Cocomo1::Intermediate::e_veryLow,   "very low"   },
+        { Cocomo1::Intermediate::e_low,       "low"        },
+        { Cocomo1::Intermediate::e_nominal,   "nominal"    },
+        { Cocomo1::Intermediate::e_high,      "high"       },
+        { Cocomo1::Intermediate::e_veryHigh,  "very high"  },
+        { Cocomo1::Intermediate::e_extraHigh, "extra high" }
+      };
+      auto  it = ratings.find(r);
+      if (it != ratings.end()) {
+        rc = it->second.c_str();
+      }
+      return rc;
+    }
+                                     
     //------------------------------------------------------------------------
     //!  
     //------------------------------------------------------------------------
@@ -54,7 +77,81 @@ namespace Dwm {
         : QDialog(parent), _cocomoCfg(cocomoCfg)
     {
       _ui.setupUi(this);
+      InitFromConfig();
     }
+
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    void CocomoConfigDialog::InitFromConfig()
+    {
+      static const map<Cocomo1::Intermediate::ProjectClassEnum,string> cs = {
+        { Cocomo1::Intermediate::e_organic,      "organic"       },
+        { Cocomo1::Intermediate::e_semiDetached, "semi-detached" },
+        { Cocomo1::Intermediate::e_embedded,     "embedded"      }
+      };
+      auto  it = cs.find(_cocomoCfg->ProjectClass());
+      if (it != cs.end()) {
+        _ui.projectClassComboBox->setCurrentText(it->second.c_str());
+      }
+      
+      InitProductGroupFromConfig();
+      InitHardwareGroupFromConfig();
+      InitPersonnelGroupFromConfig();
+      InitProjectGroupFromConfig();
+    }
+
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    void CocomoConfigDialog::InitProductGroupFromConfig()
+    {
+      auto & p = _cocomoCfg->Product();
+      _ui.relyComboBox->setCurrentText(RToComboText(p.RequiredReliability()));
+      _ui.dataComboBox->setCurrentText(RToComboText(p.SizeOfApplicationDatabase()));
+      _ui.cplxComboBox->setCurrentText(RToComboText(p.ComplexityOfProduct()));
+      return;
+    }
+
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    void CocomoConfigDialog::InitHardwareGroupFromConfig()
+    {
+      auto & p = _cocomoCfg->Hardware();
+      _ui.timeComboBox->setCurrentText(RToComboText(p.RuntimePerformanceConstraints()));
+      _ui.storComboBox->setCurrentText(RToComboText(p.MemoryContraints()));
+      _ui.virtComboBox->setCurrentText(RToComboText(p.VolatilityOfVMEnvironment()));
+      _ui.turnComboBox->setCurrentText(RToComboText(p.RequiredTurnaboutTime()));
+      return;
+    }
+    
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    void CocomoConfigDialog::InitPersonnelGroupFromConfig()
+    {
+      auto & p = _cocomoCfg->Personnel();
+      _ui.acapComboBox->setCurrentText(RToComboText(p.AnalystCapability()));
+      _ui.aexpComboBox->setCurrentText(RToComboText(p.ApplicationsExperience()));
+      _ui.pcapComboBox->setCurrentText(RToComboText(p.SoftwareEngineerCapability()));
+      _ui.vexpComboBox->setCurrentText(RToComboText(p.VirtualMachineExperience()));
+      _ui.lexpComboBox->setCurrentText(RToComboText(p.ProgrammingLanguageExperience()));
+      return;
+    }
+
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    void CocomoConfigDialog::InitProjectGroupFromConfig()
+    {
+      auto & p = _cocomoCfg->Project();
+      _ui.modpComboBox->setCurrentText(RToComboText(p.ApplicationOfSWEngineeringMethods()));
+      _ui.toolComboBox->setCurrentText(RToComboText(p.UseOfSoftwareTools()));
+      _ui.scedComboBox->setCurrentText(RToComboText(p.RequiredDevelopmentSchedule()));
+      return;
+    }
+    
     
   }  // namespace Mcloc
 

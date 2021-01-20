@@ -66,6 +66,12 @@ namespace Dwm {
     private:
       Ui_cocomoConfigDialog           _ui;
       Cocomo1::Intermediate::Config  *_cocomoCfg;
+
+      void InitFromConfig();
+      void InitProductGroupFromConfig();
+      void InitHardwareGroupFromConfig();
+      void InitPersonnelGroupFromConfig();
+      void InitProjectGroupFromConfig();
     };
     
   }  // namespace Mcloc

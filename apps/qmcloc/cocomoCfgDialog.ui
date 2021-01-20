@@ -13,13 +13,13 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
      <width>786</width>
-     <height>425</height>
+     <height>426</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_16">
@@ -27,11 +27,6 @@
      <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
        <widget class="QGroupBox" name="productGroupBox">
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
         <property name="title">
          <string>Product</string>
         </property>
@@ -40,6 +35,12 @@
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
             <widget class="QLabel" name="relyLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <stylestrategy>PreferAntialias</stylestrategy>
+              </font>
+             </property>
              <property name="text">
               <string>Required software reliability</string>
              </property>
@@ -52,6 +53,11 @@
                <width>110</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
              </property>
              <item>
               <property name="text">
@@ -86,6 +92,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
             <widget class="QLabel" name="dataLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
              <property name="text">
               <string>Size of application database</string>
              </property>
@@ -98,6 +109,11 @@
                <width>110</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
              </property>
              <property name="layoutDirection">
               <enum>Qt::LeftToRight</enum>
@@ -130,6 +146,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
             <widget class="QLabel" name="cplxLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
              <property name="text">
               <string>Complexity of the product</string>
              </property>
@@ -142,6 +163,11 @@
                <width>110</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
              </property>
              <item>
               <property name="text">
@@ -177,6 +203,19 @@
            </item>
           </layout>
          </item>
+         <item>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
         </layout>
        </widget>
       </item>
@@ -194,11 +233,6 @@
           <height>16777215</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>13</pointsize>
-         </font>
-        </property>
         <property name="title">
          <string>Personnel</string>
         </property>
@@ -207,6 +241,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout_9">
            <item>
             <widget class="QLabel" name="acapLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
              <property name="text">
               <string>Analyst capability</string>
              </property>
@@ -219,6 +258,11 @@
                <width>110</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
              </property>
              <item>
               <property name="text">
@@ -253,6 +297,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout_10">
            <item>
             <widget class="QLabel" name="aexpLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
              <property name="text">
               <string>Applications experience</string>
              </property>
@@ -265,6 +314,11 @@
                <width>110</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
              </property>
              <item>
               <property name="text">
@@ -299,6 +353,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout_8">
            <item>
             <widget class="QLabel" name="pcapLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
              <property name="text">
               <string>Software engineer capability</string>
              </property>
@@ -311,6 +370,11 @@
                <width>110</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
              </property>
              <item>
               <property name="text">
@@ -345,6 +409,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout_11">
            <item>
             <widget class="QLabel" name="vexpLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
              <property name="text">
               <string>Virtual machine experience</string>
              </property>
@@ -357,6 +426,11 @@
                <width>110</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
              </property>
              <item>
               <property name="text">
@@ -386,6 +460,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout_12">
            <item>
             <widget class="QLabel" name="lexpLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
              <property name="text">
               <string>Programming language experience</string>
              </property>
@@ -398,6 +477,11 @@
                <width>110</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
              </property>
              <item>
               <property name="text">
@@ -432,11 +516,6 @@
      <layout class="QVBoxLayout" name="verticalLayout_6">
       <item>
        <widget class="QGroupBox" name="hardwareGroupBox">
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
         <property name="title">
          <string>Hardware</string>
         </property>
@@ -445,6 +524,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
             <widget class="QLabel" name="timeLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
              <property name="text">
               <string>Runtime performance constraints</string>
              </property>
@@ -457,6 +541,11 @@
                <width>110</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
              </property>
              <item>
               <property name="text">
@@ -486,6 +575,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
             <widget class="QLabel" name="storLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
              <property name="text">
               <string>Memory constraints</string>
              </property>
@@ -498,6 +592,11 @@
                <width>110</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
              </property>
              <item>
               <property name="text">
@@ -527,6 +626,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout_6">
            <item>
             <widget class="QLabel" name="virtLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
              <property name="text">
               <string>Volatility of the virtual machine environment</string>
              </property>
@@ -539,6 +643,11 @@
                <width>110</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
              </property>
              <item>
               <property name="text">
@@ -568,6 +677,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
             <widget class="QLabel" name="turnLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
              <property name="text">
               <string>Required turnabout time</string>
              </property>
@@ -580,6 +694,11 @@
                <width>110</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
              </property>
              <item>
               <property name="text">
@@ -622,11 +741,6 @@
           <height>0</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
         <property name="title">
          <string>Project</string>
         </property>
@@ -638,6 +752,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout_13">
            <item>
             <widget class="QLabel" name="modpLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
              <property name="text">
               <string>Application of software engineering methods</string>
              </property>
@@ -650,6 +769,11 @@
                <width>110</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
              </property>
              <item>
               <property name="text">
@@ -684,6 +808,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout_14">
            <item>
             <widget class="QLabel" name="toolLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
              <property name="text">
               <string>Use of software tools</string>
              </property>
@@ -696,6 +825,11 @@
                <width>110</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
              </property>
              <item>
               <property name="text">
@@ -725,6 +859,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout_15">
            <item>
             <widget class="QLabel" name="scedLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
              <property name="text">
               <string>Required development schedule</string>
              </property>
@@ -737,6 +876,11 @@
                <width>110</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
              </property>
              <item>
               <property name="text">
@@ -792,7 +936,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -813,6 +957,11 @@
       </item>
       <item>
        <widget class="QComboBox" name="projectClassComboBox">
+        <property name="font">
+         <font>
+          <family>Arial</family>
+         </font>
+        </property>
         <item>
          <property name="text">
           <string>organic</string>

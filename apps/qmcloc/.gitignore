@@ -8,4 +8,5 @@ qmcloc
 qmcloc.app
 qmcloc.pro
 qrc_qmcloc.cpp
+ui_cocomoCfgDialog.h
 ui_qmcloc.h
