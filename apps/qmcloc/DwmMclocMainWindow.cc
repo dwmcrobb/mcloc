@@ -55,7 +55,8 @@ namespace Dwm {
     //!  
     //------------------------------------------------------------------------
     MainWindow::MainWindow(QString path, QWidget *parent)
-        : QMainWindow(parent), _treeHandler(&_ui, path), _recents()
+        : QMainWindow(parent), _treeHandler(&_ui, path), _recents(),
+          _cocomoCfg()
     {
       _ui.setupUi(this);
 
@@ -225,7 +226,7 @@ namespace Dwm {
     //------------------------------------------------------------------------
     void MainWindow::cocomoConfigTriggered()
     {
-      CocomoConfigDialog  dialog(this);
+      CocomoConfigDialog  dialog(&(this->_cocomoCfg), this);
       dialog.exec();
     }
     

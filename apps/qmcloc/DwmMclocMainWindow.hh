@@ -45,6 +45,7 @@
 #include <QKeyEvent>
 #include <QMainWindow>
 
+#include "DwmMclocCocomo1IntermediateConfig.hh"
 #include "DwmMclocRecents.hh"
 #include "DwmMclocFileSystemModel.hh"
 #include "DwmMclocTreeHandler.hh"
@@ -75,11 +76,12 @@ namespace Dwm {
       void keyPressEvent(QKeyEvent *event) override;
       
     private:
-      Ui_MainWindow     _ui;
-      FileSystemModel   _model;
-      TreeHandler       _treeHandler;
-      Recents           _recents;
-      QMenu            *_recentsMenu;
+      Ui_MainWindow                   _ui;
+      FileSystemModel                 _model;
+      TreeHandler                     _treeHandler;
+      Recents                         _recents;
+      QMenu                          *_recentsMenu;
+      Cocomo1::Intermediate::Config   _cocomoCfg;
       
       void AddLogo();
       void UpdateRecentsMenu();

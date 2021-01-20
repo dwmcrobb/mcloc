@@ -45,6 +45,7 @@
 #include <QDialog>
 
 #include "ui_cocomoCfgDialog.h"
+#include "DwmMclocCocomo1IntermediateConfig.hh"
 
 namespace Dwm {
 
@@ -59,9 +60,12 @@ namespace Dwm {
       Q_OBJECT
       
     public:
-      CocomoConfigDialog(QWidget *parent = nullptr);
+      CocomoConfigDialog(Cocomo1::Intermediate::Config *cocomoCfg,
+                         QWidget *parent = nullptr);
 
-      Ui_cocomoConfigDialog  _ui;
+    private:
+      Ui_cocomoConfigDialog           _ui;
+      Cocomo1::Intermediate::Config  *_cocomoCfg;
     };
     
   }  // namespace Mcloc

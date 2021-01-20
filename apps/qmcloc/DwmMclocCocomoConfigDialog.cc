@@ -48,8 +48,10 @@ namespace Dwm {
     //------------------------------------------------------------------------
     //!  
     //------------------------------------------------------------------------
-    CocomoConfigDialog::CocomoConfigDialog(QWidget *parent)
-        : QDialog(parent)
+    CocomoConfigDialog::
+    CocomoConfigDialog(Cocomo1::Intermediate::Config *cocomoCfg,
+                       QWidget *parent)
+        : QDialog(parent), _cocomoCfg(cocomoCfg)
     {
       _ui.setupUi(this);
     }
