@@ -67,7 +67,28 @@ namespace Dwm {
       }
       return rc;
     }
-                                     
+
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    static Cocomo1::Intermediate::Rating ComboToRating(const QString & txt)
+    {
+      static const map<string,Cocomo1::Intermediate::Rating>  ratings = {
+        { "very low",   Cocomo1::Intermediate::e_veryLow   },
+        { "low",        Cocomo1::Intermediate::e_low       },
+        { "nominal",    Cocomo1::Intermediate::e_nominal   },
+        { "high",       Cocomo1::Intermediate::e_high      },
+        { "very high",  Cocomo1::Intermediate::e_veryHigh  },
+        { "extra high", Cocomo1::Intermediate::e_extraHigh }
+      };
+      Cocomo1::Intermediate::Rating  rc = Cocomo1::Intermediate::e_nominal;
+      auto  it = ratings.find(txt.toStdString());
+      if (it != ratings.end()) {
+        rc = it->second;
+      }
+      return rc;
+    }
+    
     //------------------------------------------------------------------------
     //!  
     //------------------------------------------------------------------------
@@ -78,6 +99,7 @@ namespace Dwm {
     {
       _ui.setupUi(this);
       InitFromConfig();
+      ConnectGroupCombos();
     }
 
     //------------------------------------------------------------------------
@@ -149,6 +171,109 @@ namespace Dwm {
       _ui.modpComboBox->setCurrentText(RToComboText(p.ApplicationOfSWEngineeringMethods()));
       _ui.toolComboBox->setCurrentText(RToComboText(p.UseOfSoftwareTools()));
       _ui.scedComboBox->setCurrentText(RToComboText(p.RequiredDevelopmentSchedule()));
+      return;
+    }
+
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    void CocomoConfigDialog::ConnectGroupCombos()
+    {
+      ConnectProductGroupCombos();
+      ConnectHardwareGroupCombos();
+      ConnectPersonnelGroupCombos();
+      ConnectProjectGroupCombos();
+      return;
+    }
+    
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    void CocomoConfigDialog::ConnectProductGroupCombos()
+    {
+      namespace CI = Cocomo1::Intermediate;
+      using PC = CI::ProductConfig;
+      typedef  CI::Rating (PC::*FieldSetFn)(CI::Rating r);
+        
+      vector<pair<QComboBox *,FieldSetFn>>  boxToFn = {
+        { _ui.relyComboBox, &PC::RequiredReliability       },
+        { _ui.dataComboBox, &PC::SizeOfApplicationDatabase },
+        { _ui.cplxComboBox, &PC::ComplexityOfProduct       }
+      };
+      for (auto it : boxToFn) {
+        connect(it.first, &QComboBox::currentTextChanged,
+                [=] (const QString & txt)
+                { ((_cocomoCfg->Product()).*(it.second))(ComboToRating(txt)); });
+      }
+      return;
+    }
+
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    void CocomoConfigDialog::ConnectHardwareGroupCombos()
+    {
+      namespace CI = Cocomo1::Intermediate;
+      using HC = CI::HardwareConfig;
+      typedef  CI::Rating (HC::*FieldSetFn)(CI::Rating r);
+
+      vector<pair<QComboBox *,FieldSetFn>>  boxToFn = {
+        { _ui.timeComboBox, &HC::RuntimePerformanceConstraints   },
+        { _ui.storComboBox, &HC::MemoryContraints                },
+        { _ui.virtComboBox, &HC::VolatilityOfVMEnvironment       },
+        { _ui.turnComboBox, &HC::RequiredTurnaboutTime           }
+      };
+      for (auto it : boxToFn) {
+        connect(it.first, &QComboBox::currentTextChanged,
+                [=] (const QString & txt)
+                { (_cocomoCfg->Hardware().*(it.second))(ComboToRating(txt)); });
+      }
+      return;
+    }
+
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    void CocomoConfigDialog::ConnectPersonnelGroupCombos()
+    {
+      namespace CI = Cocomo1::Intermediate;
+      using     PC = CI::PersonnelConfig;
+      typedef   CI::Rating (PC::*FieldSetFn)(CI::Rating r);
+
+      vector<pair<QComboBox *,FieldSetFn>>  boxToFn = {
+        { _ui.acapComboBox, &PC::AnalystCapability             },
+        { _ui.aexpComboBox, &PC::ApplicationsExperience        },
+        { _ui.pcapComboBox, &PC::SoftwareEngineerCapability    },
+        { _ui.vexpComboBox, &PC::VirtualMachineExperience      },
+        { _ui.lexpComboBox, &PC::ProgrammingLanguageExperience },     
+      };
+      for (auto it : boxToFn) {
+        connect(it.first, &QComboBox::currentTextChanged,
+                [=] (const QString & txt)
+                { (_cocomoCfg->Personnel().*(it.second))(ComboToRating(txt)); });
+      }
+      return;
+    }
+
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    void CocomoConfigDialog::ConnectProjectGroupCombos()
+    {
+      namespace CI = Cocomo1::Intermediate;
+      using     PC = CI::ProjectConfig;
+      typedef   CI::Rating (PC::*FieldSetFn)(CI::Rating r);
+
+      vector<pair<QComboBox *,FieldSetFn>>  boxToFn = {
+        { _ui.modpComboBox, &PC::ApplicationOfSWEngineeringMethods },
+        { _ui.toolComboBox, &PC::UseOfSoftwareTools                },
+        { _ui.scedComboBox, &PC::RequiredDevelopmentSchedule       }     
+      };
+      for (auto it : boxToFn) {
+        connect(it.first, &QComboBox::currentTextChanged,
+                [=] (const QString & txt)
+                { (_cocomoCfg->Project().*(it.second))(ComboToRating(txt)); });
+      }
       return;
     }
     

@@ -72,6 +72,12 @@ namespace Dwm {
       void InitHardwareGroupFromConfig();
       void InitPersonnelGroupFromConfig();
       void InitProjectGroupFromConfig();
+
+      void ConnectGroupCombos();
+      void ConnectProductGroupCombos();
+      void ConnectHardwareGroupCombos();
+      void ConnectPersonnelGroupCombos();
+      void ConnectProjectGroupCombos();
     };
     
   }  // namespace Mcloc
