@@ -9,7 +9,7 @@ requires(qtConfig(treeview))
 
 ICON = resources/icon.icns
 
-FORMS        += qmcloc.ui
+FORMS        += qmcloc.ui cocomoCfgDialog.ui
 HEADERS       = DwmMclocFileSystemModel.hh DwmMclocMainWindow.hh
 HEADERS      += DwmMclocTreeHandler.hh
 SOURCES       = DwmMclocFileSystemModel.cc DwmMclocMainWindow.cc
