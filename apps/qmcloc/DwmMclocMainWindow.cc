@@ -177,6 +177,9 @@ namespace Dwm {
               &QApplication::closeAllWindows);
       connect(_ui.actionOpen, &QAction::triggered,
               this, &MainWindow::onActionOpenTriggered);
+      connect(_ui.actionConfig, &QAction::triggered,
+              this, &MainWindow::cocomoConfigTriggered);
+      
       return;
     }
     

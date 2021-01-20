@@ -98,7 +98,14 @@
     <addaction name="actionOpen"/>
     <addaction name="actionQuit"/>
    </widget>
+   <widget class="QMenu" name="menuCOCOMO">
+    <property name="title">
+     <string>COCOMO</string>
+    </property>
+    <addaction name="actionConfig"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuCOCOMO"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionQuit">
@@ -123,6 +130,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionConfig">
+   <property name="text">
+    <string>Config</string>
    </property>
   </action>
  </widget>
