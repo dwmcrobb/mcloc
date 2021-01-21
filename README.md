@@ -187,3 +187,13 @@ where the simplification and reduction of code is an objective.  Say
 modernizing C++98 or C++03 code to C++11 or later, which often presents
 opportunities to utilize new language and standard library facilities
 that reduce the amount of code we have to maintain.
+
+## qmcloc screenshots
+Here's a screenshot of the main page of qmcloc, with numbers from a
+working copy of mcloc.
+
+<img src="https://raw.githubusercontent.com/dwmcrobb/qmcloc_screenshots/master/qmcloc_screenshot01.png" width="600"/>
+
+And a screenshot of the COCOMO configuration dialog.
+
+<img src="https://raw.githubusercontent.com/dwmcrobb/qmcloc_screenshots/master/qmcloc_cocomo_config01.png" width="600"/>
