@@ -42,13 +42,17 @@
 #ifndef _DWMMCLOCTREEHANDLER_HH_
 #define _DWMMCLOCTREEHANDLER_HH_
 
-#include "DwmMclocCodeCounter.hh"
+#include <sstream>
+
+#include "DwmMclocSourceCollection.hh"
 #include "ui_qmcloc.h"
 
 namespace Dwm {
 
   namespace Mcloc {
 
+    class MainWindow;
+    
     //------------------------------------------------------------------------
     //!  Used to connect events in our QTreeView of the filesystem to 
     //!  other parts of the user interface.
@@ -62,7 +66,7 @@ namespace Dwm {
       //----------------------------------------------------------------------
       //!  
       //----------------------------------------------------------------------
-      TreeHandler(Ui_MainWindow *mymw, QString rootPath,
+      TreeHandler(MainWindow *mymw, QString rootPath,
                   QObject *parent = nullptr);
 
       //----------------------------------------------------------------------
@@ -100,10 +104,13 @@ namespace Dwm {
       void ItemActivated(const QModelIndex & idx);
 
     private:
-      QString         _rootPath;
-      size_t          _numThreads;
-      Ui_MainWindow  *_mymw;
+      QString      _rootPath;
+      size_t       _numThreads;
+      MainWindow  *_mymw;
 
+      void GetCocomoHtml(const Dwm::Mcloc::CodeCounter & total,
+                         std::ostringstream & htmlos);
+      
       void SetStatusBar(const Dwm::Mcloc::CodeCounter & totals,
                         std::chrono::duration<long,std::micro> parseTime);
     };

@@ -42,6 +42,8 @@
 #ifndef _DWMMCLOCCOCOMOCONFIGDIALOG_HH_
 #define _DWMMCLOCCOCOMOCONFIGDIALOG_HH_
 
+#include <utility>
+#include <vector>
 #include <QDialog>
 
 #include "ui_cocomoCfgDialog.h"
@@ -66,6 +68,23 @@ namespace Dwm {
     private:
       Ui_cocomoConfigDialog           _ui;
       Cocomo1::Intermediate::Config  *_cocomoCfg;
+
+      Cocomo1::Intermediate::Rating ComboToRating(const QString & txt);
+
+      Cocomo1::Intermediate::ProjectClassEnum
+      ComboToProjectClass(const QString & txt);
+      
+      template <class T, typename FnType>
+      void ConnectGroupCombos(T & cfg,
+                              std::vector<std::pair<QComboBox *,FnType>> fns)
+      {
+        for (auto & it : fns) {
+          connect(it.first, &QComboBox::currentTextChanged,
+                  [=,&cfg] (const QString & txt)
+                  { (cfg.*(it.second))(ComboToRating(txt)); });
+        }
+        return;
+      }
 
       void InitFromConfig();
       void InitProductGroupFromConfig();

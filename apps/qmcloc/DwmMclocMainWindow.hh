@@ -67,6 +67,11 @@ namespace Dwm {
 
       void SetNumParsingThreads(size_t numThreads);
 
+      Ui_MainWindow *UI()  { return &_ui; }
+
+      const Cocomo1::Intermediate::Config & CocomoCfg() const
+      { return _cocomoCfg; }
+                                                       
     public slots:
       void onActionOpenTriggered();
       void onRecentTriggered(QAction *action);

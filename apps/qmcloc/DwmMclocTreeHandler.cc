@@ -39,6 +39,7 @@
 //!  \brief Dwm::Mcloc::TreeHandler class implementation
 //---------------------------------------------------------------------------
 
+#include <iomanip>
 #include <sstream>
 #include <thread>
 
@@ -46,6 +47,8 @@
 
 #include "DwmMclocEngNotate.hh"
 #include "DwmMclocSourceCollection.hh"
+#include "DwmMclocCocomo1Intermediate.hh"
+#include "DwmMclocMainWindow.hh"
 #include "DwmMclocTreeHandler.hh"
 
 namespace Dwm {
@@ -55,7 +58,7 @@ namespace Dwm {
     //------------------------------------------------------------------------
     //!  
     //------------------------------------------------------------------------
-    TreeHandler::TreeHandler(Ui_MainWindow *mymw, QString rootPath,
+    TreeHandler::TreeHandler(MainWindow *mymw, QString rootPath,
                              QObject *parent)
         : QObject(parent), _rootPath(rootPath), _mymw(mymw)
     {
@@ -82,7 +85,7 @@ namespace Dwm {
     //------------------------------------------------------------------------
     void TreeHandler::DirectoryLoaded(const QString &)
     {
-      _mymw->treeView->resizeColumnToContents(0);
+      _mymw->UI()->treeView->resizeColumnToContents(0);
     }
 
     //------------------------------------------------------------------------
@@ -180,6 +183,46 @@ namespace Dwm {
     //------------------------------------------------------------------------
     //!  
     //------------------------------------------------------------------------
+    void TreeHandler::GetCocomoHtml(const Dwm::Mcloc::CodeCounter & total,
+                                    std::ostringstream & htmlos)
+    {
+      using namespace std;
+      using namespace Cocomo1;
+      
+      double  effort = Intermediate::Effort(_mymw->CocomoCfg(),
+                                            total.CodeLines());
+      double  devTime = Intermediate::DevelopmentTime(_mymw->CocomoCfg(),
+                                                      total.CodeLines());
+      double  persons = effort / devTime;
+      htmlos << "<table width=100% cellspacing=0>"
+             << "<tr>"
+             << "<td align=center colspan=3><b>COCOMO Intermediate</b></td>"
+             << "</tr>"
+             << "<tr>"
+             << "<td align=right><b>Effort</b></td>"
+             << "<td align=right><b>Time</b></td>"
+             << "<td>&nbsp;</td>"
+             << "</tr>"
+             << "<tr>"
+             << "<td align=right style=\"border-bottom: 1px solid #FF7F2A;\">"
+             << "<b>(person-months)</b></td>"
+             << "<td align=right style=\"border-bottom: 1px solid #FF7F2A;\">"
+             << "<b>(months)</td>"
+             << "<td align=right style=\"border-bottom: 1px solid #FF7F2A;\">"
+             << "<b>People</b></td>"
+             << "</tr>"
+             << "<tr>"
+             << "<td align=right>" << setprecision(4) << effort << "</td>"
+             << "<td align=right>" << setprecision(4) << devTime << "</td>"
+             << "<td align=right>" << setprecision(4) << persons << "</td>"
+             << "</tr>"
+             << "</table>";
+      return;
+    }
+    
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
     void
     TreeHandler::SetStatusBar(const CodeCounter & totals,
                               std::chrono::duration<long,std::micro> parseTime)
@@ -196,7 +239,7 @@ namespace Dwm {
            << "s ("
            << Dwm::Mcloc::EngNotate(linesPerSec, 4, 4)
            << " lines/sec)";
-        _mymw->statusbar->showMessage(os.str().c_str(), 5000);
+        _mymw->UI()->statusbar->showMessage(os.str().c_str(), 5000);
       }
       return;
     }
@@ -228,7 +271,9 @@ namespace Dwm {
         GetLanguageHtml(sc, totalCounter, htmlos);
         htmlos << "<p>&nbsp;</p>";
         GetExtensionHtml(sc, totalCounter, htmlos);
-        _mymw->textEdit->setHtml(htmlos.str().c_str());
+        htmlos << "<p>&nbsp;</p>";
+        GetCocomoHtml(totalCounter, htmlos);
+        _mymw->UI()->textEdit->setHtml(htmlos.str().c_str());
         SetStatusBar(totalCounter, sc.ParseTime());
       }
       return;

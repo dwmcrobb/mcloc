@@ -71,7 +71,8 @@ namespace Dwm {
     //------------------------------------------------------------------------
     //!  
     //------------------------------------------------------------------------
-    static Cocomo1::Intermediate::Rating ComboToRating(const QString & txt)
+    Cocomo1::Intermediate::Rating
+    CocomoConfigDialog::ComboToRating(const QString & txt)
     {
       static const map<string,Cocomo1::Intermediate::Rating>  ratings = {
         { "very low",   Cocomo1::Intermediate::e_veryLow   },
@@ -88,6 +89,26 @@ namespace Dwm {
       }
       return rc;
     }
+
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    Cocomo1::Intermediate::ProjectClassEnum
+    CocomoConfigDialog::ComboToProjectClass(const QString & txt)
+    {
+      static const map<string,Cocomo1::Intermediate::ProjectClassEnum> pcs = {
+        { "organic",        Cocomo1::Intermediate::e_organic      },
+        { "semi-detached",  Cocomo1::Intermediate::e_semiDetached },
+        { "embedded",       Cocomo1::Intermediate::e_embedded     }
+      };
+      Cocomo1::Intermediate::ProjectClassEnum  rc =
+        Cocomo1::Intermediate::e_organic;
+      auto  it = pcs.find(txt.toStdString());
+      if (it != pcs.end()) {
+        rc = it->second;
+      }
+      return rc;
+    }
     
     //------------------------------------------------------------------------
     //!  
@@ -100,6 +121,10 @@ namespace Dwm {
       _ui.setupUi(this);
       InitFromConfig();
       ConnectGroupCombos();
+
+      connect(_ui.projectClassComboBox, &QComboBox::currentTextChanged,
+              [this] (const QString & txt)
+              { _cocomoCfg->ProjectClass(ComboToProjectClass(txt)); });
     }
 
     //------------------------------------------------------------------------
@@ -200,11 +225,7 @@ namespace Dwm {
         { _ui.dataComboBox, &PC::SizeOfApplicationDatabase },
         { _ui.cplxComboBox, &PC::ComplexityOfProduct       }
       };
-      for (auto it : boxToFn) {
-        connect(it.first, &QComboBox::currentTextChanged,
-                [=] (const QString & txt)
-                { ((_cocomoCfg->Product()).*(it.second))(ComboToRating(txt)); });
-      }
+      ConnectGroupCombos(_cocomoCfg->Product(), boxToFn);
       return;
     }
 
@@ -215,19 +236,15 @@ namespace Dwm {
     {
       namespace CI = Cocomo1::Intermediate;
       using HC = CI::HardwareConfig;
-      typedef  CI::Rating (HC::*FieldSetFn)(CI::Rating r);
+      typedef  CI::Rating (HC::*SetFn)(CI::Rating r);
 
-      vector<pair<QComboBox *,FieldSetFn>>  boxToFn = {
+      vector<pair<QComboBox *,SetFn>>  boxToFn = {
         { _ui.timeComboBox, &HC::RuntimePerformanceConstraints   },
         { _ui.storComboBox, &HC::MemoryContraints                },
         { _ui.virtComboBox, &HC::VolatilityOfVMEnvironment       },
         { _ui.turnComboBox, &HC::RequiredTurnaboutTime           }
       };
-      for (auto it : boxToFn) {
-        connect(it.first, &QComboBox::currentTextChanged,
-                [=] (const QString & txt)
-                { (_cocomoCfg->Hardware().*(it.second))(ComboToRating(txt)); });
-      }
+      ConnectGroupCombos(_cocomoCfg->Hardware(), boxToFn);
       return;
     }
 
@@ -238,20 +255,16 @@ namespace Dwm {
     {
       namespace CI = Cocomo1::Intermediate;
       using     PC = CI::PersonnelConfig;
-      typedef   CI::Rating (PC::*FieldSetFn)(CI::Rating r);
-
-      vector<pair<QComboBox *,FieldSetFn>>  boxToFn = {
+      typedef   CI::Rating (PC::*SetFn)(CI::Rating r);
+      
+      vector<pair<QComboBox *,SetFn>>  boxToFn = {
         { _ui.acapComboBox, &PC::AnalystCapability             },
         { _ui.aexpComboBox, &PC::ApplicationsExperience        },
         { _ui.pcapComboBox, &PC::SoftwareEngineerCapability    },
         { _ui.vexpComboBox, &PC::VirtualMachineExperience      },
-        { _ui.lexpComboBox, &PC::ProgrammingLanguageExperience },     
+        { _ui.lexpComboBox, &PC::ProgrammingLanguageExperience }
       };
-      for (auto it : boxToFn) {
-        connect(it.first, &QComboBox::currentTextChanged,
-                [=] (const QString & txt)
-                { (_cocomoCfg->Personnel().*(it.second))(ComboToRating(txt)); });
-      }
+      ConnectGroupCombos(_cocomoCfg->Personnel(), boxToFn);
       return;
     }
 
@@ -262,18 +275,14 @@ namespace Dwm {
     {
       namespace CI = Cocomo1::Intermediate;
       using     PC = CI::ProjectConfig;
-      typedef   CI::Rating (PC::*FieldSetFn)(CI::Rating r);
-
-      vector<pair<QComboBox *,FieldSetFn>>  boxToFn = {
+      typedef   CI::Rating (PC::*SetFn)(CI::Rating r);
+      
+      vector<pair<QComboBox *,SetFn>>  boxToFn = {
         { _ui.modpComboBox, &PC::ApplicationOfSWEngineeringMethods },
         { _ui.toolComboBox, &PC::UseOfSoftwareTools                },
-        { _ui.scedComboBox, &PC::RequiredDevelopmentSchedule       }     
+        { _ui.scedComboBox, &PC::RequiredDevelopmentSchedule       }
       };
-      for (auto it : boxToFn) {
-        connect(it.first, &QComboBox::currentTextChanged,
-                [=] (const QString & txt)
-                { (_cocomoCfg->Project().*(it.second))(ComboToRating(txt)); });
-      }
+      ConnectGroupCombos(_cocomoCfg->Project(), boxToFn);
       return;
     }
     
