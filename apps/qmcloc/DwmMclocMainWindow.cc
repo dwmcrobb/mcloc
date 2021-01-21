@@ -180,6 +180,8 @@ namespace Dwm {
               this, &MainWindow::onActionOpenTriggered);
       connect(_ui.actionConfig, &QAction::triggered,
               this, &MainWindow::cocomoConfigTriggered);
+      connect(_ui.actionLoad_Config, &QAction::triggered,
+              this, &MainWindow::cocomoLoadConfigTriggered);
       
       return;
     }
@@ -230,6 +232,21 @@ namespace Dwm {
       CocomoConfigDialog  dialog(&cocomoConfig, this);
       if (dialog.exec()) {
         this->_cocomoCfg = cocomoConfig;
+      }
+      return;
+    }
+
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    void MainWindow::cocomoLoadConfigTriggered()
+    {
+      QFileDialog  dialog(this);
+      dialog.setAcceptMode(QFileDialog::AcceptOpen);
+      QStringList fileNames;
+      if (dialog.exec()) {
+        fileNames = dialog.selectedFiles();
+        _cocomoCfg.Parse(fileNames[0].toStdString());
       }
       return;
     }

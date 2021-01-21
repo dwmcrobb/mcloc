@@ -76,6 +76,7 @@ namespace Dwm {
       void onActionOpenTriggered();
       void onRecentTriggered(QAction *action);
       void cocomoConfigTriggered();
+      void cocomoLoadConfigTriggered();
       
     protected:
       void keyPressEvent(QKeyEvent *event) override;
