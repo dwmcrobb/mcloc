@@ -433,7 +433,7 @@ namespace Dwm {
              << "  Applications experience: "
              << RatingName(pc._applicationsExperience) << ";\n"
              << "  #  can be verylow, low, nominal, high or veryhigh\n"
-             << "  Software engineer capability: \n"
+             << "  Software engineer capability: "
              << RatingName(pc._softwareEngineerCapability) << ";\n"
              << "  #  can be verylow, low, nominal or high\n"
              << "  Virtual machine experience: "

@@ -39,6 +39,10 @@
 //!  \brief NOT YET DOCUMENTED
 //---------------------------------------------------------------------------
 
+#include <fstream>
+
+#include <QFileDialog>
+
 #include "DwmMclocCocomoConfigDialog.hh"
 
 namespace Dwm {
@@ -125,8 +129,27 @@ namespace Dwm {
       connect(_ui.projectClassComboBox, &QComboBox::currentTextChanged,
               [this] (const QString & txt)
               { _cocomoCfg->ProjectClass(ComboToProjectClass(txt)); });
+
+      connect(_ui.saveAsButton, &QPushButton::clicked,
+              this, &CocomoConfigDialog::saveAsButtonClicked);
     }
 
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    void CocomoConfigDialog::saveAsButtonClicked()
+    {
+      QFileDialog  dialog(this);
+      dialog.setAcceptMode(QFileDialog::AcceptSave);
+      QStringList fileNames;
+      if (dialog.exec()) {
+        fileNames = dialog.selectedFiles();
+        ofstream  os(fileNames[0].toStdString());
+        os << *_cocomoCfg;
+      }
+      return;
+    }
+    
     //------------------------------------------------------------------------
     //!  
     //------------------------------------------------------------------------

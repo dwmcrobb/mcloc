@@ -65,6 +65,9 @@ namespace Dwm {
       CocomoConfigDialog(Cocomo1::Intermediate::Config *cocomoCfg,
                          QWidget *parent = nullptr);
 
+    public slots:
+      void saveAsButtonClicked();
+      
     private:
       Ui_cocomoConfigDialog           _ui;
       Cocomo1::Intermediate::Config  *_cocomoCfg;
