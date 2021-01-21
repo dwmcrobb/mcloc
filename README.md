@@ -23,13 +23,13 @@ Speed has never been an issue in my usage.  As an example,
 on a large code base which is orders of magnitude larger than my
 typical use:
 
-```
+<pre>
 % time mcloc -l -Lc++ ~/gits/qt5
-         CODE    COMMENTS LANGUAGE                                             
+         <b>CODE</b>    <b>COMMENTS</b> <b>LANGUAGE</b>                                             
 L  12,892,785   2,270,945 C++                                                  
-   12,892,785   2,270,945 TOTAL  (208.4ms, 72.77M lines/s, 308% sys 1,361% usr)
+<b>   12,892,785   2,270,945 TOTAL</b>  (208.4ms, 72.77M lines/s, 308% sys 1,361% usr)
 3.231u 1.117s 0:01.07 405.6%    0+0k 0+0io 0pf+0w
-```
+</pre>
 
 I don't need it to be any faster.  Note that above we see it only took
 208.4 milliseconds to count lines in the source.  The remaining 800
