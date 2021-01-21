@@ -79,7 +79,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="minimumSize">
@@ -135,6 +135,12 @@
   <action name="actionConfig">
    <property name="text">
     <string>Config</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
    </property>
   </action>
  </widget>
