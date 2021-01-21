@@ -11,9 +11,9 @@ ICON = resources/icon.icns
 
 FORMS        += qmcloc.ui cocomoCfgDialog.ui
 HEADERS       = DwmMclocFileSystemModel.hh DwmMclocMainWindow.hh
-HEADERS      += DwmMclocTreeHandler.hh
+HEADERS      += DwmMclocTreeHandler.hh DwmMclocCocomoConfigDialog.hh
 SOURCES       = DwmMclocFileSystemModel.cc DwmMclocMainWindow.cc
-SOURCES      += DwmMclocTreeHandler.cc main.cc
+SOURCES      += DwmMclocTreeHandler.cc DwmMclocCocomoConfigDialog.cc main.cc
 
 macx {
     SOURCES  += DwmMclocMacOSIsDarkMode.mm
