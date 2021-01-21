@@ -20,6 +20,6 @@ macx {
 }
     
 INCLUDEPATH  += ../../classes/include
-LIBS         += -L../../classes/lib -lMcloc -ltermcap @LIBS@
+LIBS         += ../../classes/lib/libMcloc.a -ltermcap @LIBS@
 RESOURCES = qmcloc.qrc
 
