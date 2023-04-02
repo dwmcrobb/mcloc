@@ -66,10 +66,12 @@ g_defaultCocomoConf("/usr/local/etc/mcloc_cocomo1_intermediate.cfg");
 //----------------------------------------------------------------------------
 static set<string> & LowerStrings(set<string> & ss)
 {
-  for (const auto & str : ss) {
-    ss.erase(str);
-    ss.insert(Dwm::Mcloc::CodeUtils::tolower(str));
+  set<string>  newSet;
+  
+  for (auto it = ss.begin(); it != ss.end(); ++it) {
+    newSet.insert(Dwm::Mcloc::CodeUtils::tolower(*it));
   }
+  ss = newSet;
   return ss;
 }
 
@@ -210,7 +212,7 @@ PrintCocomoEstimates(const Dwm::Mcloc::SourceCollection & sc,
 
     Dwm::Mcloc::TerminalTricks  tt;
     if (isatty(STDOUT_FILENO)) {
-      cout.imbue(std::locale(""));
+      cout.imbue(std::locale());
     }
     else {
       tt.On(false);
@@ -319,7 +321,7 @@ int main(int argc, char *argv[])
       }
     }
     sc.Parse(numThreads);
-    cout.imbue(std::locale(""));
+    cout.imbue(std::locale());
     
     sc.Print(cout, printBy, args.Get<'g'>(), howToSort, args.Get<'q'>());
 
