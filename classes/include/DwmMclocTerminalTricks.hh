@@ -75,7 +75,7 @@ namespace Dwm {
       {
         std::ostringstream  os;
         if (_on) {
-          os.imbue(std::locale(""));
+          os.imbue(std::locale());
           os << _startBold;
         }
         os << t;
@@ -93,7 +93,7 @@ namespace Dwm {
       {
         std::ostringstream  os;
         if (_on) {
-          os.imbue(std::locale(""));
+          os.imbue(std::locale());
           os << _startUnderscore;
         }
         os << t;
@@ -109,7 +109,7 @@ namespace Dwm {
       {
         if (_on) {
           if (on) {
-            os.imbue(std::locale(""));
+            os.imbue(std::locale());
             os << _startBold;
           }
           else {
@@ -126,7 +126,7 @@ namespace Dwm {
       {
         if (_on) {
           if (on) {
-            os.imbue(std::locale(""));
+            os.imbue(std::locale());
             os << _startUnderscore;
           }
           else {
