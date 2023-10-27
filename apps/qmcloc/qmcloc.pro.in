@@ -1,8 +1,10 @@
-CONFIG         += c++17
-QMAKE_CXX      = $$(CXX)
+CONFIG         += c++17 warn_off sdk_no_version_check
+QMAKE_CXX      = @CXX@
 QMAKE_CXXFLAGS = -std=c++17 -g
-QMAKE_LINK     = $$(CXX)
-QMAKE_MACOSX_DEPLOYMENT_TARGET = 11.0
+QMAKE_LINK     = @CXX@
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 14.0
+QMAKE_MAC_SDK.macosx.Path         = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.0.sdk
+# QMAKE_MAC_SDK.macosx.SDKVersion   = 14
 
 QT += widgets
 requires(qtConfig(treeview))
@@ -16,7 +18,8 @@ SOURCES       = DwmMclocFileSystemModel.cc DwmMclocMainWindow.cc
 SOURCES      += DwmMclocTreeHandler.cc DwmMclocCocomoConfigDialog.cc main.cc
 
 macx {
-    SOURCES  += DwmMclocMacOSIsDarkMode.mm
+	SOURCES  += DwmMclocMacOSIsDarkMode.mm
+        QMAKE_MAC_SDK = macosx14.0
 }
     
 INCLUDEPATH  += ../../classes/include
