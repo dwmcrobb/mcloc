@@ -1,7 +1,14 @@
+2023-10-27  Daniel McRobb  <dwm@spark.mcplex.net>
+
+	* apps/qmcloc/GNUmakefile, apps/qmcloc/Makefile,
+	apps/qmcloc/qmcloc.pro.in:
+	Add workarounds to build qmcloc with qt5 from MacPorts on macOS
+	Sonoma.
+
 2023-10-27  dwm  <dwm@nomnom.mcplex.net>
 
 	* tagged as mcloc-1.0.12
-	
+
 	* Use default constructor for std::locale.
 
 2021-01-15  Daniel McRobb  <dwm@mcplex.net>
