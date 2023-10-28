@@ -1,5 +1,10 @@
 2023-10-27  Daniel McRobb  <dwm@spark.mcplex.net>
 
+	* tagged as mcloc-1.0.13
+
+	* Makefile: Whoops, fix identifier when building package on macOS;
+	should be net.mcplex.mcloc, not com.mcplex.mcloc
+
 	* apps/qmcloc/GNUmakefile, apps/qmcloc/Makefile,
 	apps/qmcloc/qmcloc.pro.in:
 	Add workarounds to build qmcloc with qt5 from MacPorts on macOS

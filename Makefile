@@ -15,7 +15,7 @@ pkgprep:: ${PKGTARGETS}
 package: ${OSNAME}-pkg
 
 darwin-pkg: pkgprep
-	pkgbuild --root staging --component-plist mcloc.plist --identifier com.mcplex.mcloc --version ${VERSION} mcloc-${VERSION}.pkg
+	pkgbuild --root staging --component-plist mcloc.plist --identifier net.mcplex.mcloc --version ${VERSION} mcloc-${VERSION}.pkg
 
 freebsd-pkg: pkgprep
 	mkfbsdmnfst -r packaging/fbsd_manifest -s staging > staging/+MANIFEST
