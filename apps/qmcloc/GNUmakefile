@@ -1,5 +1,4 @@
 include ../../Makefile.vars
-include Makefile
 
 LFLAGS := $(LFLAGS:-Wl,-sdk_version=)
 LFLAGS := $(LFLAGS:-Wl,12.3=)
@@ -10,9 +9,16 @@ else
 PKGTARGETS = ${STAGING}${PREFIXDIR}/bin/qmcloc
 endif
 
+ifneq ("$(shell test -e ./Makefile && echo ex)","ex")
+Makefile: qmcloc.pro
+	${QMAKE} $<
+endif
+
+include Makefile
+
 pkgprep: ${PKGTARGETS}
 
-${STAGING}${PREFIXDIR}/bin/qmcrover: qmcrover
+${STAGING}${PREFIXDIR}/bin/qmcloc: qmcloc
 	../../install-sh -s -c -m 555 $< $@
 
 ${STAGING}${PREFIXDIR}/../../Applications/qmcloc.app: qmcloc.app/Contents/MacOS/qmcloc

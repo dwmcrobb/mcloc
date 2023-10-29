@@ -1,4 +1,5 @@
 CONFIG         += c++17 warn_off sdk_no_version_check
+QMAKE          = @QMAKE@
 QMAKE_CXX      = @CXX@
 QMAKE_CXXFLAGS = -std=c++17 -g
 QMAKE_LINK     = @CXX@

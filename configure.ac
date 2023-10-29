@@ -7,6 +7,8 @@ AC_PROG_CC
 AC_PROG_CXX
 AC_CANONICAL_SYSTEM
 
+QMAKE=qmake
+
 case $host_os in
      darwin[*])
 	OSNAME=Darwin
@@ -16,10 +18,19 @@ case $host_os in
 	AC_SUBST(DEBARCH)
 	;;
      *)
-     echo "host_os: " ${host_os}
+        echo "host_os: " ${host_os}
+	QMAKE=`which qmake`
+	if [[ $? -ne 0 ]]; then
+	  QMAKE=`which qmake-qt5`
+	  if [[ $? -ne 0 ]]; then
+	    echo qmake not found
+	    exit 1
+	  fi
+	fi
      ;;
 esac
 AC_SUBST(OSNAME)
+AC_SUBST(QMAKE)
 
 MCLOC_NEED_LIBSTDCPPFS
 

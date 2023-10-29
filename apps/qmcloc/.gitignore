@@ -1,6 +1,7 @@
 *~
 *.o
 .qmake.stash
+Makefile
 Makefile.qmake
 moc_*.cpp
 moc_*.h

@@ -4,6 +4,7 @@ LDFLAGS          = @LDFLAGS@
 OSLIBS		 = @LIBS@
 OSNAME           = @OSNAME@
 PREFIXDIR	 = @prefix@
+QMAKE		 = @QMAKE@
 TAG		 = @DWM_TAG@
 STAGING          = @STAGING@
 TERMLIB          = -ltermcap
