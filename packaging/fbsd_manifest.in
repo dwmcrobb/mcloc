@@ -15,8 +15,5 @@ scripts: {
   install: "#!/bin/sh\n\necho install \"mcloc\"\n",
   pre-deinstall: "echo pre-deinstall\n",
   post-deinstall: "echo post-deinstall\n",
-  deinstall: "echo deinstall\n",
-  pre-upgrade: "echo pre-upgrade\n",
-  post-upgrade: "echo post-upgrade\n",
-  upgrade: "echo upgrade\n"
+  deinstall: "echo deinstall\n"
 }
