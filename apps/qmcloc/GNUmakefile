@@ -1,8 +1,5 @@
 include ../../Makefile.vars
 
-LFLAGS := $(LFLAGS:-Wl,-sdk_version=)
-LFLAGS := $(LFLAGS:-Wl,12.3=)
-
 ifeq ("${OSNAME}","darwin")
 PKGTARGETS = ${STAGING}${PREFIXDIR}/../../Applications/qmcloc.app
 else
@@ -15,6 +12,11 @@ Makefile: qmcloc.pro
 endif
 
 include Makefile
+
+ifeq ("${OSNAME}","darwin")
+LFLAGS := $(LFLAGS:-Wl,-sdk_version=)
+LFLAGS := $(LFLAGS:-Wl,12.3=)
+endif
 
 pkgprep: ${PKGTARGETS}
 
