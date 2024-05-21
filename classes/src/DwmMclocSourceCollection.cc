@@ -41,7 +41,6 @@
 extern "C" {
   #include <sys/types.h>
   #include <sys/time.h>
-  #include <sys/resource.h>
   #include <unistd.h>
 }
 
@@ -412,10 +411,36 @@ namespace Dwm {
     //------------------------------------------------------------------------
     //!  
     //------------------------------------------------------------------------
+    static uint64_t CalculateTimeDiff(const struct timeval & starttv,
+                                      const struct timeval & endtv)
+    {
+      uint64_t  endUsecs = endtv.tv_sec * 1000000 + endtv.tv_usec;
+      uint64_t  startUsecs = starttv.tv_usec * 1000000 + starttv.tv_usec;
+      return (endUsecs - startUsecs);
+    }
+    
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
+    void SourceCollection::CalculateCpuTimes(struct rusage & usageStart)
+    {
+      struct rusage   usageEnd;
+      getrusage(RUSAGE_SELF, &usageEnd);
+      _userCpuUsecs = CalculateTimeDiff(usageStart.ru_utime,
+                                        usageEnd.ru_utime);
+      _sysCpuUsecs = CalculateTimeDiff(usageStart.ru_stime,
+                                      usageEnd.ru_stime);
+      return;
+    }
+    
+    //------------------------------------------------------------------------
+    //!  
+    //------------------------------------------------------------------------
     void SourceCollection::Parse(int numThreads)
     {
-      std::chrono::steady_clock::time_point  startTime =
-        std::chrono::steady_clock::now();
+      using namespace std::chrono;
+      
+      auto            startTime = steady_clock::now();
       struct rusage   usageStart;
       getrusage(RUSAGE_SELF, &usageStart);
 
@@ -427,28 +452,12 @@ namespace Dwm {
       for (int i = 0; i < numThreads; ++i) {
         workers.push_back(make_unique<ScanWorker>(queue));
       }
-      for (auto & worker : workers) {
-        worker->Start();
-      }
-      for (auto & worker : workers) {
-        worker->Finish();
-      }
-      std::chrono::steady_clock::time_point  endTime =
-        std::chrono::steady_clock::now();
-      _parseTime = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime);
-
-      struct rusage   usageEnd;
-      getrusage(RUSAGE_SELF, &usageEnd);
-      uint64_t  endUserUsecs = ((usageEnd.ru_utime.tv_sec * 1000000)
-                                + usageEnd.ru_utime.tv_usec);
-      uint64_t  startUserUsecs = ((usageStart.ru_utime.tv_sec * 1000000)
-                                  + usageStart.ru_utime.tv_usec);
-      _userCpuUsecs = endUserUsecs - startUserUsecs;
-      uint64_t  endSysUsecs = ((usageEnd.ru_stime.tv_sec * 1000000)
-                               + usageEnd.ru_stime.tv_usec);
-      uint64_t  startSysUsecs = ((usageStart.ru_stime.tv_sec * 1000000)
-                                 + usageStart.ru_stime.tv_usec);
-      _sysCpuUsecs = endSysUsecs - startSysUsecs;
+      for (auto & worker : workers) { worker->Start();  }
+      for (auto & worker : workers) { worker->Finish(); }
+      
+      auto  endTime = steady_clock::now();
+      _parseTime = duration_cast<microseconds>(endTime - startTime);
+      CalculateCpuTimes(usageStart);
       
       return;
     }

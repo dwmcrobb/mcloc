@@ -41,6 +41,10 @@
 #ifndef _DWMMCLOCSOURCECOLLECTION_HH_
 #define _DWMMCLOCSOURCECOLLECTION_HH_
 
+extern "C" {
+  #include <sys/resource.h>
+}
+
 #include <chrono>
 #include <filesystem>
 #include <iostream>
@@ -266,6 +270,7 @@ namespace Dwm {
       void SortByName(PointerVector & v) const;
       void SortBySize(StringCounterPairVector & ctrs, bool reversed);
       void SortByName(StringCounterPairVector & ctrs);
+      void CalculateCpuTimes(struct rusage & usageStart);
       std::ostream & PrintHeader(std::ostream & os,
                                  WhatToPrint whatToPrint,
                                  bool quiet) const;
