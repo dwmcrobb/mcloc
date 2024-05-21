@@ -1,7 +1,14 @@
 2024-05-21  Daniel McRobb  <dwm@spark.mcplex.net>
 
-	* classes/src/DwmMclocSourceCollection.cc:
-	classes/include/DwmMclocSourceCollection.hh:
+	* classes/src/DwmMclocSourceCollection.cc: Fix pasto in
+	CalculateTimeDiff() that caused incorrect CPU usage calculation.
+
+	* classes/include/DwmMclocSourceCollection.hh,
+	  classes/src/DwmMclocSourceCollection.cc:
+	Argument to CalculateCpuTimes() should be const	reference.
+
+	* classes/src/DwmMclocSourceCollection.cc,
+	  classes/include/DwmMclocSourceCollection.hh:
 	Minor change to make Parse() a little more readable.
 
 2023-10-29  Daniel W. McRobb  <dwm@kiva.mcplex.net>
