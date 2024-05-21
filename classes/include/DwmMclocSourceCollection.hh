@@ -270,7 +270,7 @@ namespace Dwm {
       void SortByName(PointerVector & v) const;
       void SortBySize(StringCounterPairVector & ctrs, bool reversed);
       void SortByName(StringCounterPairVector & ctrs);
-      void CalculateCpuTimes(struct rusage & usageStart);
+      void CalculateCpuTimes(const struct rusage & usageStart);
       std::ostream & PrintHeader(std::ostream & os,
                                  WhatToPrint whatToPrint,
                                  bool quiet) const;

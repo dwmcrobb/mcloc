@@ -414,22 +414,22 @@ namespace Dwm {
     static uint64_t CalculateTimeDiff(const struct timeval & starttv,
                                       const struct timeval & endtv)
     {
-      uint64_t  endUsecs = endtv.tv_sec * 1000000 + endtv.tv_usec;
-      uint64_t  startUsecs = starttv.tv_usec * 1000000 + starttv.tv_usec;
+      uint64_t  endUsecs = (endtv.tv_sec * 1000000) + endtv.tv_usec;
+      uint64_t  startUsecs = (starttv.tv_sec * 1000000) + starttv.tv_usec;
       return (endUsecs - startUsecs);
     }
     
     //------------------------------------------------------------------------
     //!  
     //------------------------------------------------------------------------
-    void SourceCollection::CalculateCpuTimes(struct rusage & usageStart)
+    void SourceCollection::CalculateCpuTimes(const struct rusage & usageStart)
     {
       struct rusage   usageEnd;
       getrusage(RUSAGE_SELF, &usageEnd);
       _userCpuUsecs = CalculateTimeDiff(usageStart.ru_utime,
                                         usageEnd.ru_utime);
       _sysCpuUsecs = CalculateTimeDiff(usageStart.ru_stime,
-                                      usageEnd.ru_stime);
+                                       usageEnd.ru_stime);
       return;
     }
     
@@ -440,7 +440,7 @@ namespace Dwm {
     {
       using namespace std::chrono;
       
-      auto            startTime = steady_clock::now();
+      auto  startTime = steady_clock::now();
       struct rusage   usageStart;
       getrusage(RUSAGE_SELF, &usageStart);
 
