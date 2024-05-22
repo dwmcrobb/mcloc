@@ -1,10 +1,12 @@
-CONFIG         += c++17 warn_off sdk_no_version_check
+CONFIG         += c++20 warn_off sdk_no_version_check
 QMAKE          = @QMAKE@
 QMAKE_CXX      = @CXX@
-QMAKE_CXXFLAGS = -std=c++17 -g
+QMAKE_CXXFLAGS_GNUCXX11 =
+QMAKE_CXXFLAGS_CXX11 =   
+QMAKE_CXXFLAGS = -std=c++20 -g
 QMAKE_LINK     = @CXX@
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 14.0
-QMAKE_MAC_SDK.macosx.Path         = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.0.sdk
+QMAKE_MAC_SDK.macosx.Path         = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk
 # QMAKE_MAC_SDK.macosx.SDKVersion   = 14
 
 QT += widgets
