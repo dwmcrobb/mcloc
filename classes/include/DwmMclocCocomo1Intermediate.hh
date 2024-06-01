@@ -42,6 +42,8 @@
 #ifndef _DWMMCLOCCOCOMO1INTERMEDIATE_HH_
 #define _DWMMCLOCCOCOMO1INTERMEDIATE_HH_
 
+#include <cstdint>
+
 #include "DwmMclocCocomo1IntermediateConfig.hh"
 
 namespace Dwm {
