@@ -1,3 +1,10 @@
+2024-06-01  Daniel McRobb  <dwm@thrip.mcplex.net>
+
+	* tagged as mcloc-1.0.15
+
+	* classes/include/DwmMclocCocomo1Intermediate.hh:
+	#include <cstdint>
+
 2024-05-21  Daniel McRobb  <dwm@spark.mcplex.net>
 
 	* classes/src/DwmMclocSourceCollection.cc: Fix pasto in
